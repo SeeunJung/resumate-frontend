@@ -67,7 +67,7 @@ function RetrospectiveWrapper({ folder, color }: RetrospectiveWrapperProps) {
           isOpen ? 'max-h-screen mt-3' : 'max-h-0'
         }`}
       >
-        <PreviewCardGrid folderId={folder.id} />
+        <PreviewCardGrid folderId={folder.id!} />
       </div>
     </div>
   )

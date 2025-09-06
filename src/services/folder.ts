@@ -8,7 +8,7 @@ interface FolderResponse {
 
 export const getFolder = async (): Promise<Folder[]> => {
   const res = await axiosInstance.get('/folder')
-  return res.data.result ?? []
+  return res.data.result
 }
 
 export const addFolder = async (
