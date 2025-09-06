@@ -1,7 +1,31 @@
+import { useEffect, useState } from 'react'
 import type { Folder } from '../../types/Folder'
 import FolderTree from './FolderTree'
+import { getFolder } from '@/services/folder'
+import LoadingSpinner from '../common/LoadingSpinner'
 
-function FolderSection({ folders }: { folders: Folder[] }) {
+function FolderSection() {
+  const [folders, setFolders] = useState<Folder[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchFolders = async () => {
+      try {
+        const data = await getFolder()
+        setFolders(data)
+      } catch (error) {
+        console.error('폴더 불러오기 실패: ', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchFolders()
+  }, [])
+
+  if (loading) {
+    return <LoadingSpinner />
+  }
+
   return (
     <div className="flex flex-col gap-2 px-2">
       <div className="flex items-center justify-between">

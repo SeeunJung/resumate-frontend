@@ -6,9 +6,9 @@ interface FolderResponse {
   result?: Folder[]
 }
 
-export const getFolder = async (): Promise<FolderResponse> => {
+export const getFolder = async (): Promise<Folder[]> => {
   const res = await axiosInstance.get('/folder')
-  return res.data
+  return res.data.result ?? []
 }
 
 export const addFolder = async (
