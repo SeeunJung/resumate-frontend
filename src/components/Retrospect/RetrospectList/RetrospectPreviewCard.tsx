@@ -22,9 +22,7 @@ function RetrospectivePreviewCard({ retrospect }: RetrospectCardProps) {
       onClick={() => navigate(`/retrospectives/${folderId}/${retrospect.id}`)}
     >
       <div>
-        <h3 className="text-lg font-bold whitespace-nowrap">
-          {retrospect.title}
-        </h3>
+        <h3 className="text-lg font-bold truncate">{retrospect.title}</h3>
         {previewText && (
           <p className="text-sm text-[var(--gray--dark)]">{previewText}</p>
         )}

@@ -16,7 +16,12 @@ function PreviewCardGrid({ folderId }: PreviewCardGridProps) {
     const fetchRetrospects = async () => {
       try {
         const data = await viewFolderRetrospectList({
-          folder: folderId,
+          folderId: folderId,
+          page: 0,
+          size: 20,
+          sort: 'REVIEW_DATE_DESC',
+          isCompleted: true,
+          isDeleted: false,
         })
         setRetrospects(data.reviews)
       } catch (error) {
@@ -34,8 +39,10 @@ function PreviewCardGrid({ folderId }: PreviewCardGridProps) {
 
   if (retrospects.length === 0) {
     return (
-      <div>
-        <span>회고가 존재하지 않습니다.</span>
+      <div className="py-2">
+        <span className="flex justify-center text-[var(--label--subtle)] text-xs font-normal">
+          회고가 존재하지 않습니다.
+        </span>
       </div>
     )
   }

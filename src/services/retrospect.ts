@@ -10,7 +10,7 @@ interface GetRetrospectListParams {
 }
 
 interface GetFolderRetrospectListParams {
-  folder?: number
+  folderId?: number
   page?: number
   size?: number
   sort?: string
