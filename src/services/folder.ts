@@ -18,9 +18,7 @@ export const addFolder = async (
   return res.data
 }
 
-export const deleteFolder = async (
-  id: Pick<Folder, 'id'>,
-): Promise<FolderResponse> => {
+export const deleteFolder = async (id: number): Promise<FolderResponse> => {
   const res = await axiosInstance.delete(`/folder/${id}`)
   return res.data
 }

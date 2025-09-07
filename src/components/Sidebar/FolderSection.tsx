@@ -1,26 +1,14 @@
-import { useEffect, useState } from 'react'
-import type { Folder } from '../../types/Folder'
+import { useEffect } from 'react'
 import FolderTree from './FolderTree'
-import { getFolder } from '@/services/folder'
 import LoadingSpinner from '../common/LoadingSpinner'
+import { useFolderStore } from '@/stores/useFolderStore'
 
 function FolderSection() {
-  const [folders, setFolders] = useState<Folder[]>([])
-  const [loading, setLoading] = useState(true)
+  const { folders, loading, fetchFolders } = useFolderStore()
 
   useEffect(() => {
-    const fetchFolders = async () => {
-      try {
-        const data = await getFolder()
-        setFolders(data)
-      } catch (error) {
-        console.error('폴더 불러오기 실패: ', error)
-      } finally {
-        setLoading(false)
-      }
-    }
     fetchFolders()
-  }, [])
+  }, [fetchFolders])
 
   if (loading) {
     return <LoadingSpinner />
