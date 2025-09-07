@@ -69,8 +69,8 @@ function RetrospectiveDetail() {
   return (
     <div className="inline-flex flex-col pb-8 justify-start items-start gap-6">
       <DetailHeader
+        title={retrospect.title}
         reviewDate={retrospect.reviewDate}
-        createdDate={retrospect.reviewDate}
       />
       <div className="inline-flex flex-col justify-start gap-3">
         {questions.map((q) => (

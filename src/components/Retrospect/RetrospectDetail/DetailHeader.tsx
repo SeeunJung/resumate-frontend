@@ -3,12 +3,11 @@ import Breadcrumb from '../../common/Breadcrumb'
 import DetailHeaderButtons from './DetailHeaderButtons'
 
 interface DetailHeaderProps {
-  // folderId: bigint
+  title: string
   reviewDate: string
-  createdDate: string
 }
 
-function DetailHeader({ reviewDate, createdDate }: DetailHeaderProps) {
+function DetailHeader({ title, reviewDate }: DetailHeaderProps) {
   return (
     <div className="py-4 w-full max-w-screen mx-auto flex flex-col gap-3">
       <Breadcrumb />
@@ -20,10 +19,10 @@ function DetailHeader({ reviewDate, createdDate }: DetailHeaderProps) {
             </div>
           </div>
           <div className="flex">
-            <h2 className={mainTitle()}>{reviewDate}</h2>
+            <h2 className={mainTitle()}>{title}</h2>
           </div>
           <span className="text-xs text-[var(--label--default)]">
-            {createdDate}
+            {reviewDate}
           </span>
         </div>
 
