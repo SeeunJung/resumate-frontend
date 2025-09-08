@@ -29,7 +29,7 @@ function RetrospectiveHeader({ folderName }: RetrospectiveHeaderProps) {
             variant={'black'}
             className="whitespace-nowrap"
           >
-            자소서 재료 뽑기
+            자소서 소재 뽑기
           </Button>
         </div>
       </div>

@@ -4,7 +4,6 @@ interface ProgressIndicatorCardProps {
   sectionKey: string
   label: string
   filled: boolean
-  color: string
   icon: React.ComponentType<IconProps>
 }
 
@@ -12,13 +11,12 @@ function ProgressIndicatorCard({
   sectionKey,
   label,
   filled,
-  color,
   icon: Icon,
 }: ProgressIndicatorCardProps) {
   return (
     <div
       className={`flex justify-between items-center w-full p-3 gap-4 rounded-sm overflow-hidden
-        ${filled ? color : 'bg-white border-[var(--gray)]'}`}
+        ${filled ? 'bg-[var(--brand--blue--subtler)] text-[var(--brand--blue--strong)]' : 'bg-white border-[var(--gray)]'}`}
     >
       <div className="flex flex-col flex-1 justify-start items-start gap-1 whitespace-nowrap">
         <h4 className="text-sm font-bold leading-loose">{label}</h4>
