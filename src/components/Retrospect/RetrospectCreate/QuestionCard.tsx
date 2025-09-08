@@ -1,4 +1,3 @@
-import Tooltip from '@/components/common/Tooltip'
 import { Card } from '@/styles/customStyles'
 import { useState } from 'react'
 
@@ -6,15 +5,9 @@ interface QuestionCardProps {
   label: string
   question: string
   explanation: string
-  tooltip: string
 }
 
-function QuestionCard({
-  label,
-  question,
-  explanation,
-  tooltip,
-}: QuestionCardProps) {
+function QuestionCard({ label, question, explanation }: QuestionCardProps) {
   const [text, setText] = useState('')
   const MAXLENGTH = 200
 
@@ -57,7 +50,6 @@ function QuestionCard({
           <span className="text-xs font-normal text-[var(--label--subtle)] leading-loose">
             {explanation}
           </span>
-          <Tooltip instruction={tooltip} />
         </div>
       </div>
 
@@ -66,7 +58,7 @@ function QuestionCard({
           placeholder="내용을 입력하세요"
           value={text}
           onChange={handleChange}
-          className="w-full h-18 px-2 py-1 bg-white rounded-xl border border-[var(--brand--blue--strong)] placeholder:text-sm"
+          className="w-full h-18 px-2 py-1 bg-white rounded-xl border border-[var(--brand--blue--strong)] placeholder:text-sm focus:border-2 focus:border-[var(--brand--blue--strong)]"
         />
       </div>
 
