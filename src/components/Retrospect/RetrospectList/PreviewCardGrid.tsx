@@ -1,25 +1,58 @@
-import { retrospectivesData } from '../../../mockData/retrospectivesData'
+import { useEffect, useState } from 'react'
 import RetrospectivePreviewCard from './RetrospectPreviewCard'
+import type { Retrospect } from '@/types/Retrospect'
+import { viewFolderRetrospectList } from '@/services/retrospect'
+import LoadingSpinner from '@/components/common/LoadingSpinner'
 
 interface PreviewCardGridProps {
-  folderId: bigint
+  folderId: number
 }
 
 function PreviewCardGrid({ folderId }: PreviewCardGridProps) {
-  const retrospectives = retrospectivesData.filter(
-    (r) => r.folder_id === folderId && !r.is_deleted,
-  )
+  const [retrospects, setRetrospects] = useState<Retrospect[]>([])
+  const [loading, setLoading] = useState(true)
 
-  if (retrospectives.length === 0) {
-    return <div>회고가 존재하지 않습니다.</div>
+  useEffect(() => {
+    const fetchRetrospects = async () => {
+      try {
+        const data = await viewFolderRetrospectList({
+          folderId: folderId,
+          page: 0,
+          size: 20,
+          sort: 'REVIEW_DATE_DESC',
+          isCompleted: true,
+          isDeleted: false,
+        })
+        setRetrospects(data.reviews)
+      } catch (error) {
+        console.error('회고를 불러오지 못했습니다: ', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchRetrospects()
+  }, [folderId])
+
+  if (loading) {
+    return <LoadingSpinner />
+  }
+
+  if (retrospects.length === 0) {
+    return (
+      <div className="py-2">
+        <span className="flex justify-center text-[var(--label--subtle)] text-xs font-normal">
+          회고가 존재하지 않습니다.
+        </span>
+      </div>
+    )
   }
 
   return (
     <div className="grid grid-cols-1 gap-4">
-      {retrospectives.map((retrospective) => (
+      {retrospects.map((retrospect) => (
         <RetrospectivePreviewCard
-          key={retrospective.id.toString()}
-          retrospective={retrospective}
+          key={retrospect.id}
+          retrospect={retrospect}
         />
       ))}
     </div>

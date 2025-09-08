@@ -1,4 +1,3 @@
-import { folders } from '../../mockData/folderData'
 import ButtonSection from './ButtonSection'
 import DeletedFolder from './DeletedFolder'
 import FolderSection from './FolderSection'
@@ -11,7 +10,7 @@ function Sidebar() {
       <div className="flex flex-col gap-6 w-full">
         <Logo />
         <ButtonSection />
-        <FolderSection folders={folders} />
+        <FolderSection />
         <DeletedFolder />
       </div>
       <UserSection />

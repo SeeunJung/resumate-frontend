@@ -1,23 +1,47 @@
 import { useParams } from 'react-router-dom'
 import DetailCard from '../components/Retrospect/RetrospectDetail/DetailCard'
 import DetailHeader from '../components/Retrospect/RetrospectDetail/DetailHeader'
-import { retrospectivesData } from '../mockData/retrospectivesData'
-import type { Retrospectives } from '../types/Retrospectives'
+import type { Retrospect } from '../types/Retrospect'
+import { useEffect, useState } from 'react'
+import { detailRetrospect } from '@/services/retrospect'
+import LoadingSpinner from '@/components/common/LoadingSpinner'
 
-//{retrospective}: RetrospectiveDetailsProps 형식으로 데이터 전달
 function RetrospectiveDetail() {
   const { retroId } = useParams<{ retroId: string }>()
-  const retroDetailId = retroId ? BigInt(retroId) : null
+  const [retrospect, setRetrospect] = useState<Retrospect | null>(null)
+  const [loading, setLoading] = useState(true)
 
-  const retrospective = retrospectivesData.find((r) => r.id === retroDetailId)
+  useEffect(() => {
+    if (!retroId) return
 
-  if (!retrospective) {
-    return <div>회고를 찾을 수 없습니다.</div>
+    const fetchDetail = async () => {
+      try {
+        const data = await detailRetrospect({ id: Number(retroId) })
+        setRetrospect(data)
+      } catch (error) {
+        console.error('회고를 불러오지 못했습니다: ', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchDetail()
+  }, [retroId])
+
+  if (loading) {
+    return <LoadingSpinner />
+  }
+
+  if (!retrospect) {
+    return (
+      <div>
+        <span>회고를 찾을 수 없습니다.</span>
+      </div>
+    )
   }
 
   const questions: {
     key: keyof Pick<
-      Retrospectives,
+      Retrospect,
       'positives' | 'improvements' | 'learnings' | 'aspirations'
     >
     label: string
@@ -45,15 +69,15 @@ function RetrospectiveDetail() {
   return (
     <div className="inline-flex flex-col pb-8 justify-start items-start gap-6">
       <DetailHeader
-        reviewDate={retrospective.review_date}
-        createdDate={retrospective.created_at}
+        title={retrospect.title}
+        reviewDate={retrospect.reviewDate}
       />
       <div className="inline-flex flex-col justify-start gap-3">
         {questions.map((q) => (
           <DetailCard
             key={q.key}
             question={q.label}
-            answer={retrospective[q.key] ?? ''}
+            answer={retrospect[q.key] ?? ''}
           />
         ))}
       </div>

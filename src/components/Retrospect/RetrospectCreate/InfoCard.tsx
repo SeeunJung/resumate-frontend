@@ -11,12 +11,12 @@ function InfoCard() {
         'px-5',
         'py-6',
         'gap-4',
-        'bg-[var(--white--alter)]',
+        'bg-[var(--white)]',
         'rounded-[20px]',
         'outline',
         'outline-1',
         'outline-offset-[-1px]',
-        'outline-[var(--gray)]',
+        'outline-[var(--brand--blue--subtle)]',
       )}
     >
       <div className="flex flex-col gap-1">

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-type SectionKey = 'info' | 'liked' | 'lacked' | 'learned' | 'longed'
+type SectionKey = 'info' | 'situation' | 'task' | 'action' | 'result'
 
 interface RetrospectEntryState {
   filled: { [key: string]: boolean }
@@ -10,10 +10,10 @@ interface RetrospectEntryState {
 export const useEntryStore = create<RetrospectEntryState>((set) => ({
   filled: {
     info: false,
-    liked: false,
-    lacked: false,
-    learned: false,
-    longed: false,
+    situation: false,
+    task: false,
+    action: false,
+    result: false,
   },
   setFilled: (key, value) =>
     set((state) => ({
