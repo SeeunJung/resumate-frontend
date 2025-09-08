@@ -43,7 +43,7 @@ function ButtonSection() {
       />
       <RouteButton
         label="작성"
-        path="/"
+        path="/retrospects/new"
         icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"

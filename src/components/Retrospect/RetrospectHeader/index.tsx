@@ -20,7 +20,7 @@ function RetrospectiveHeader({ folderName }: RetrospectiveHeaderProps) {
             size={'md'}
             variant={'line'}
             className="whitespace-nowrap"
-            onClick={() => navigate('/retrospectives/new')}
+            onClick={() => navigate('/retrospects/new')}
           >
             회고 작성하기
           </Button>

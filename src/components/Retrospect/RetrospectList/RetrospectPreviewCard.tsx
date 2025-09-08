@@ -19,7 +19,7 @@ function RetrospectivePreviewCard({ retrospect }: RetrospectCardProps) {
       className={Card(
         'p-6 flex flex-col justify-between h-full cursor-pointer',
       )}
-      onClick={() => navigate(`/retrospectives/${folderId}/${retrospect.id}`)}
+      onClick={() => navigate(`/retrospects/${folderId}/${retrospect.id}`)}
     >
       <div>
         <h3 className="text-lg font-bold truncate">{retrospect.title}</h3>
