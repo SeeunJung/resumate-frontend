@@ -6,14 +6,22 @@ interface FolderResponse {
   result?: Folder[]
 }
 
-export const getFolder = async (): Promise<Folder[]> => {
-  const res = await axiosInstance.get('/folder')
+export const getFolder = async (
+  parentId?: number,
+  children?: boolean,
+): Promise<Folder[]> => {
+  const res = await axiosInstance.get('/folder', {
+    params: {
+      ...(parentId ? { parentId } : {}),
+      ...(children !== undefined ? { children } : {}),
+    },
+  })
   return res.data.result
 }
 
 export const addFolder = async (
   payload: Pick<Folder, 'parentId' | 'name' | 'order'>,
-): Promise<FolderResponse> => {
+) => {
   const res = await axiosInstance.post('/folder', payload)
   return res.data
 }

@@ -9,14 +9,16 @@ import LoadingSpinner from '@/components/common/LoadingSpinner'
 
 function RetrospectiveList() {
   const { folderId } = useParams<{ folderId: string }>()
-  const [folders, setFolders] = useState<Folder[]>([])
+  const [subFolders, setSubFolders] = useState<Folder[]>([])
   const [loading, setLoading] = useState(true)
+  const rootFolderId = Number(folderId)
 
   useEffect(() => {
     const fetchFolders = async () => {
+      if (!folderId) return
       try {
-        const data = await getFolder()
-        setFolders(data)
+        const data = await getFolder(rootFolderId, true)
+        setSubFolders(data)
       } catch (error) {
         console.error('폴더를 불러오지 못했습니다: ', error)
       } finally {
@@ -24,7 +26,7 @@ function RetrospectiveList() {
       }
     }
     fetchFolders()
-  }, [])
+  }, [rootFolderId])
 
   if (loading) {
     return <LoadingSpinner />
@@ -34,18 +36,11 @@ function RetrospectiveList() {
     return <div>잘못된 폴더 ID입니다.</div>
   }
 
-  const rootFolderId = Number(folderId)
-  const rootFolder = folders.find(
-    (f) => f.id === rootFolderId && f.parentId === null,
-  )
-  if (!rootFolder) {
-    return <div>폴더가 존재하지 않습니다.</div>
-  }
+  const parentName = subFolders[0]?.parentName ?? ''
 
-  const subFolders = rootFolder.children ?? []
   return (
     <div className="flex flex-col gap-6">
-      <RetrospectiveHeader folderName={rootFolder.name ?? ''} />
+      <RetrospectiveHeader folderName={parentName} />
       <div className="flex flex-wrap gap-x-4 gap-y-6">
         {subFolders.map((folder, idx) => (
           <div

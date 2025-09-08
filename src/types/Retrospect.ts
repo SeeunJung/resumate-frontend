@@ -1,9 +1,9 @@
 export type Retrospect = {
   id?: number
   folderId: number
-  folderName: string
+  folderName?: string
   title: string
-  description: string
+  description?: string
   positives: string
   improvements: string
   learnings: string

@@ -1,4 +1,6 @@
+import { useEntryStore } from '@/stores/useEntryStore'
 import { Card } from '@/styles/customStyles'
+import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 interface QuestionCardProps {
@@ -16,10 +18,15 @@ function QuestionCard({
 }: QuestionCardProps) {
   const { register, watch } = useFormContext()
   const text = watch(name) || ''
+  const setFilled = useEntryStore((state) => state.setFilled)
   const MAXLENGTH = 200
 
   const length = text.length
   const isOverLimit = length > MAXLENGTH
+
+  useEffect(() => {
+    setFilled(name, text.trim().length > 0)
+  }, [text, name, setFilled])
 
   return (
     <div
@@ -59,21 +66,28 @@ function QuestionCard({
         <textarea
           placeholder="내용을 입력하세요"
           {...register(name)}
-          className="w-full h-18 px-2 py-1 bg-white rounded-xl border border-[var(--brand--blue--strong)] placeholder:text-sm focus:border-2 focus:border-[var(--brand--blue--strong)]"
+          className="w-full h-18 px-3 py-2 text-sm bg-white rounded-xl border border-[var(--brand--blue--strong)] placeholder:text-sm outline-[var(--brand--blue--strong)] resize-none"
         />
       </div>
 
-      <div className="flex justify-end items-center ml-auto">
-        <span
-          className={`text-xs ${
-            isOverLimit
-              ? 'text-[var(--red--strong)]'
-              : 'text-[var(--label--brand)]'
-          }`}
-        >
-          {length}
-        </span>
-        <span className="text-xs">/{MAXLENGTH}</span>
+      <div className="flex justify-between items-center w-full">
+        {isOverLimit && (
+          <p className="text-xs text-[var(--red--strong)]">
+            {MAXLENGTH}자를 넘을 수 없습니다.
+          </p>
+        )}
+        <div className="flex items-center ml-auto">
+          <span
+            className={`text-xs ${
+              isOverLimit
+                ? 'text-[var(--red--strong)]'
+                : 'text-[var(--label--brand)]'
+            }`}
+          >
+            {length}
+          </span>
+          <span className="text-xs">/{MAXLENGTH}</span>
+        </div>
       </div>
     </div>
   )
