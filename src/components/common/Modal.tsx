@@ -12,7 +12,7 @@ import {
 import Button from './Button'
 
 interface AddFolderModalProps {
-  trigger: React.ReactNode
+  trigger?: React.ReactNode
 }
 export function AddFolderModal({ trigger }: AddFolderModalProps) {
   const [folderName, setFolderName] = useState('')

@@ -9,7 +9,7 @@ import {
 
 interface SelectInputProps {
   placeholder: string
-  name: string
+  name?: string
   value: string
   onChange: (value: string) => void
   options: string[]

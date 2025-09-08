@@ -1,20 +1,22 @@
 import { Card } from '@/styles/customStyles'
-import { useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 
 interface QuestionCardProps {
   label: string
   question: string
   explanation: string
+  name: string
 }
 
-function QuestionCard({ label, question, explanation }: QuestionCardProps) {
-  const [text, setText] = useState('')
+function QuestionCard({
+  label,
+  question,
+  explanation,
+  name,
+}: QuestionCardProps) {
+  const { register, watch } = useFormContext()
+  const text = watch(name) || ''
   const MAXLENGTH = 200
-
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value
-    setText(value)
-  }
 
   const length = text.length
   const isOverLimit = length > MAXLENGTH
@@ -56,8 +58,7 @@ function QuestionCard({ label, question, explanation }: QuestionCardProps) {
       <div className="w-full">
         <textarea
           placeholder="내용을 입력하세요"
-          value={text}
-          onChange={handleChange}
+          {...register(name)}
           className="w-full h-18 px-2 py-1 bg-white rounded-xl border border-[var(--brand--blue--strong)] placeholder:text-sm focus:border-2 focus:border-[var(--brand--blue--strong)]"
         />
       </div>
