@@ -5,6 +5,7 @@ import type { Retrospect } from '../types/Retrospect'
 import { useEffect, useState } from 'react'
 import { detailRetrospect } from '@/services/retrospect'
 import LoadingSpinner from '@/components/common/LoadingSpinner'
+import { retrospectDetailItems } from '@/const/retrospectDetailItems'
 
 function RetrospectiveDetail() {
   const { retroId } = useParams<{ retroId: string }>()
@@ -39,45 +40,19 @@ function RetrospectiveDetail() {
     )
   }
 
-  const questions: {
-    key: keyof Pick<
-      Retrospect,
-      'positives' | 'improvements' | 'learnings' | 'aspirations'
-    >
-    label: string
-  }[] = [
-    {
-      key: 'positives',
-      label:
-        '1. 좋았던 점 (Good / Liked): 오늘 하루 잘된 점, 성과, 만족스러웠던 부분',
-    },
-    {
-      key: 'improvements',
-      label:
-        '2. 개선할 점 (Bad / Lacked): 아쉬웠던 점, 부족하거나 방해가 되었던 요소',
-    },
-    {
-      key: 'learnings',
-      label: '3. 배운 점 (Learned): 오늘 새롭게 배운 지식, 인사이트',
-    },
-    {
-      key: 'aspirations',
-      label:
-        '4. 원했던 점 (Longed for / Better): 더 있었으면 좋았을 부분, 내일 시도하고 싶은 변화',
-    },
-  ]
   return (
-    <div className="inline-flex flex-col pb-8 justify-start items-start gap-6">
+    <div className="inline-flex flex-col md:px-10 pb-8 justify-start items-start gap-5">
       <DetailHeader
         title={retrospect.title}
         reviewDate={retrospect.reviewDate}
       />
-      <div className="inline-flex flex-col justify-start gap-3">
-        {questions.map((q) => (
+      <div className="inline-flex flex-col justify-start px-14 md:px-28 py-16 rounded-xl outline outline-offset-[-1px] outline-[var(--brand--blue--subtle)] gap-6">
+        {retrospectDetailItems.map((q) => (
           <DetailCard
             key={q.key}
             question={q.label}
             answer={retrospect[q.key] ?? ''}
+            icon={q.icon}
           />
         ))}
       </div>
