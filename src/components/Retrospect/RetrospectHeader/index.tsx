@@ -5,9 +5,13 @@ import Button from '../../common/Button'
 
 interface RetrospectiveHeaderProps {
   folderName: string
+  onAnalysisClick?: () => void
 }
 
-function RetrospectiveHeader({ folderName }: RetrospectiveHeaderProps) {
+function RetrospectiveHeader({
+  folderName,
+  onAnalysisClick,
+}: RetrospectiveHeaderProps) {
   const navigate = useNavigate()
 
   return (
@@ -28,6 +32,7 @@ function RetrospectiveHeader({ folderName }: RetrospectiveHeaderProps) {
             size={'md'}
             variant={'black'}
             className="whitespace-nowrap"
+            onClick={onAnalysisClick}
           >
             자소서 소재 뽑기
           </Button>
