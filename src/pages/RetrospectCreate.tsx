@@ -8,6 +8,7 @@ import type { Retrospect } from '@/types/Retrospect'
 import { createRetrospect, editRetrospect } from '@/services/retrospect'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import DraftModal from '@/components/Retrospect/RetrospectDraft/DraftModal'
 
 interface RetrospectFormValues {
   folderId: number
@@ -40,6 +41,8 @@ function RetrospectCreate() {
 
   const navigate = useNavigate()
   const [isCompleted, setIsCompleted] = useState(false)
+  const [draftModalOpen, setDraftModalOpen] = useState(false)
+
   useEffect(() => {
     if (initialData) {
       methods.reset(initialData)
@@ -86,7 +89,6 @@ function RetrospectCreate() {
           <FloatingSidebar />
           <div className="flex flex-col self-stretch gap-2">
             <Button
-              type="submit"
               variant={'black'}
               size={'sm'}
               onClick={() => {
@@ -97,6 +99,7 @@ function RetrospectCreate() {
               등록하기
             </Button>
             <Button
+              type="button"
               variant={'line'}
               size={'sm'}
               onClick={() => {
@@ -107,14 +110,21 @@ function RetrospectCreate() {
               임시저장
             </Button>
             <Button
+              type="button"
               variant={'line'}
               size={'sm'}
+              onClick={() => setDraftModalOpen(true)}
             >
               불러오기
             </Button>
           </div>
         </div>
       </form>
+
+      <DraftModal
+        isOpen={draftModalOpen}
+        onClose={() => setDraftModalOpen(false)}
+      />
     </FormProvider>
   )
 }

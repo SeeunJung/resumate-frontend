@@ -66,6 +66,7 @@ function QuestionCard({
         <textarea
           placeholder="내용을 입력하세요"
           {...register(name)}
+          defaultValue={text}
           className="w-full h-18 px-3 py-2 text-sm bg-white rounded-xl border border-[var(--brand--blue--strong)] placeholder:text-sm outline-[var(--brand--blue--strong)] resize-none"
         />
       </div>
