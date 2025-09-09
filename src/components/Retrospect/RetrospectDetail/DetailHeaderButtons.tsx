@@ -1,11 +1,52 @@
+import { deleteRetrospect } from '@/services/retrospect'
 import Button from '../../common/Button'
+import { useNavigate } from 'react-router-dom'
 
-function DetailHeaderButtons() {
+interface RetrospectDetailHeaderProps {
+  retroId: number
+  onEdit: () => void
+  openModal: (modalProps: {
+    isError: boolean
+    title: string
+    description: string
+    onBtnClick?: () => void
+  }) => void
+}
+
+function DetailHeaderButtons({
+  retroId,
+  onEdit,
+  openModal,
+}: RetrospectDetailHeaderProps) {
+  const navigate = useNavigate()
+  const handleDelete = async () => {
+    try {
+      await deleteRetrospect(retroId)
+      openModal({
+        isError: false,
+        title: '회고 삭제 성공',
+        description: '회고 삭제에 성공했습니다.',
+        onBtnClick: () => navigate('/'),
+      })
+    } catch (error) {
+      console.error(error)
+      openModal({
+        isError: true,
+        title: '회고 삭제 실패',
+        description:
+          error instanceof Error
+            ? error.message
+            : '알 수 없는 오류가 발생했습니다.',
+      })
+    }
+  }
+
   return (
     <div className="flex justify-start items-center gap-2">
       <Button
         variant={'line'}
         size={'sm'}
+        onClick={onEdit}
       >
         <div className="flex justify-center items-center">
           <span className="w-5 h-5">
@@ -34,6 +75,7 @@ function DetailHeaderButtons() {
       <Button
         variant={'redLine'}
         size={'sm'}
+        onClick={() => handleDelete()}
       >
         <div className="flex justify-center items-center">
           <span className="w-5 h-5">

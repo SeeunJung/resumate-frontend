@@ -1,60 +1,108 @@
-import SelectInput from '@/components/common/SelectInput'
+import { useFolderStore } from '@/stores/useFolderStore'
 import { defaultInput } from '@/styles/customStyles'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 
-function InfoInput() {
-  const [folder, setFolder] = useState('')
-  const [subFolder, setSubFolder] = useState('')
-  const [title, setTitle] = useState('')
-  const [date, setDate] = useState('')
+interface InfoInputProps {
+  initialData?: {
+    folderId?: number
+    parentFolderId?: number
+    title?: string
+    reviewDate?: string
+  }
+}
+
+function InfoInput({ initialData }: InfoInputProps) {
+  const { register, setValue } = useFormContext()
+  const [parentFolderId, setParentFolderId] = useState<number | ''>(
+    initialData?.parentFolderId || '',
+  )
+  const { fetchParentFolders, fetchSubFolders, parentFolders, subFolders } =
+    useFolderStore()
+
+  useEffect(() => {
+    fetchParentFolders()
+  }, [fetchParentFolders])
+
+  useEffect(() => {
+    if (!parentFolderId) {
+      setValue('folderId', 0)
+      return
+    }
+    fetchSubFolders(parentFolderId)
+  }, [parentFolderId])
+
+  useEffect(() => {
+    if (initialData) {
+      if (initialData.folderId) {
+        if (initialData.parentFolderId)
+          setParentFolderId(initialData.parentFolderId)
+        if (initialData.folderId) setValue('folderId', initialData.folderId)
+        if (initialData.title) setValue('title', initialData.title)
+        if (initialData.reviewDate)
+          setValue('reviewDate', initialData.reviewDate)
+      }
+    }
+  })
 
   return (
     <div className="flex flex-col gap-4 w-full">
-      <div className="flex items-center w-full gap-2">
-        <span className="text-sm text-black font-medium w-8">폴더</span>
-
-        <SelectInput
-          placeholder="폴더를 선택해주세요"
-          name={folder}
-          value={folder}
-          onChange={setFolder}
-          options={['기획', 'UI']}
-        />
-      </div>
-
-      <div className="flex items-center self-stretch gap-2">
-        <span className="text-sm text-black font-medium w-8">제목</span>
-        <input
-          type="text"
-          value={title}
-          placeholder="제목을 입력하세요"
-          className={defaultInput('w-full')}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </div>
-
-      <div className="flex flex-wrap items-center gap-8 w-full">
-        <div className="flex items-center gap-2 flex-1">
-          <span className="text-sm text-black font-medium w-9">파트</span>
-
-          <SelectInput
-            placeholder="파트를 지정해주세요"
-            name="folder"
-            value={subFolder}
-            onChange={setSubFolder}
-            options={['기획', 'UI']}
-          />
+      <div className="flex w-full items-center gap-8">
+        <div className="flex flex-1 items-center gap-2">
+          <span className="text-sm text-black font-medium w-7">폴더</span>
+          <select
+            className={defaultInput('px-2 flex-1')}
+            value={parentFolderId}
+            onChange={(e) => setParentFolderId(Number(e.target.value))}
+          >
+            <option value="">폴더를 선택해주세요</option>
+            {parentFolders.map((f) => (
+              <option
+                key={f.id}
+                value={f.id}
+              >
+                {f.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="flex items-center gap-2">
           <span className="text-sm text-black font-medium w-8">날짜</span>
           <input
             type="date"
-            className={defaultInput('w-full')}
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            className={defaultInput('flex-1')}
+            {...register('reviewDate')}
           />
         </div>
+      </div>
+
+      <div className="flex items-center gap-2 flex-1 self-stretch">
+        <span className="text-sm text-black font-medium w-8">제목</span>
+        <input
+          type="text"
+          placeholder="제목을 입력해주세요"
+          className={defaultInput('w-full')}
+          {...register('title')}
+        />
+      </div>
+
+      <div className="flex items-center">
+        <span className="text-sm text-black font-medium w-10">태그</span>
+        <select
+          {...register('folderId')}
+          className={defaultInput('input px-2 w-full')}
+        >
+          <option value="">주제를 태그해주세요</option>
+          {subFolders.map((f) => (
+            <option
+              key={f.id}
+              value={f.id}
+            >
+              {f.name}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   )

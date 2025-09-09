@@ -1,6 +1,15 @@
 import { Card } from '@/styles/customStyles'
 import InfoInput from './InfoInput'
-function InfoCard() {
+
+interface InfoCardProps {
+  initialData?: {
+    folderId?: number
+    title?: string
+    reviewDate?: string
+  }
+}
+
+function InfoCard({ initialData }: InfoCardProps) {
   return (
     <div
       className={Card(
@@ -11,12 +20,12 @@ function InfoCard() {
         'px-5',
         'py-6',
         'gap-4',
-        'bg-[var(--white--alter)]',
+        'bg-[var(--white)]',
         'rounded-[20px]',
         'outline',
         'outline-1',
         'outline-offset-[-1px]',
-        'outline-[var(--gray)]',
+        'outline-[var(--brand--blue--subtle)]',
       )}
     >
       <div className="flex flex-col gap-1">
@@ -26,7 +35,7 @@ function InfoCard() {
         <h3 className="justify-center text-lg font-bold">회고 기본 정보</h3>
       </div>
 
-      <InfoInput />
+      <InfoInput initialData={initialData} />
     </div>
   )
 }

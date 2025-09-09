@@ -18,9 +18,14 @@ body * {
   --gray--dark: rgba(62, 62, 62, 1);
   --label--default: rgba(85, 85, 85, 1);
   --label--subtle: rgba(128, 128, 128, 1);
+  --label--brand: rgba(24, 49, 82, 1);
 
+  --brand--black--default: rgba(107, 107, 107, 1);
   --brand--blue: rgba(91, 154, 236, 1);
+  --brand--blue--strong: rgba(64, 108, 165, 1);
   --brand--blue--subtle: rgba(180, 212, 255, 1);
+  --brand--blue--subtler: rgba(239, 245, 253, 1);
+  --brand--blue--subtlest: rgba(248, 251, 255, 1);
   --brand--green: rgba(0, 188, 172, 1);
   --brand--green--subtle: rgba(175, 233, 227, 1);
 

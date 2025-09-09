@@ -1,16 +1,16 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { Card } from '../../../styles/customStyles'
-import type { Retrospectives } from '../../../types/Retrospectives'
+import type { Retrospect } from '../../../types/Retrospect'
 import { truncateText } from '../../../utils/truncateText'
 
-interface RetrospectiveCardProps {
-  retrospective: Retrospectives
+interface RetrospectCardProps {
+  retrospect: Retrospect
 }
 
-function RetrospectivePreviewCard({ retrospective }: RetrospectiveCardProps) {
+function RetrospectivePreviewCard({ retrospect }: RetrospectCardProps) {
   const { folderId } = useParams<{ folderId: string }>()
   const navigate = useNavigate()
-  const { positives, improvements, learnings, aspirations } = retrospective
+  const { positives, improvements, learnings, aspirations } = retrospect
   const available = positives || improvements || learnings || aspirations
   const previewText = truncateText(available, 50)
 
@@ -19,20 +19,16 @@ function RetrospectivePreviewCard({ retrospective }: RetrospectiveCardProps) {
       className={Card(
         'p-6 flex flex-col justify-between h-full cursor-pointer',
       )}
-      onClick={() =>
-        navigate(`/retrospectives/${folderId}/${retrospective.id.toString()}`)
-      }
+      onClick={() => navigate(`/retrospects/${folderId}/${retrospect.id}`)}
     >
       <div>
-        <h3 className="text-lg font-bold whitespace-nowrap">
-          {retrospective.review_date}
-        </h3>
+        <h3 className="text-lg font-bold truncate">{retrospect.title}</h3>
         {previewText && (
           <p className="text-sm text-[var(--gray--dark)]">{previewText}</p>
         )}
       </div>
       <div className="text-right text-xs text-[var(--gray--dark)] mt-auto">
-        {retrospective.created_at} 작성
+        {retrospect.reviewDate} 작성
       </div>
     </div>
   )

@@ -3,40 +3,30 @@ export const questionList: {
   label: string
   question: string
   explanation: string
-  tooltip: string
 }[] = [
   {
     key: 'positives',
-    label: 'Liked',
-    question:
-      '1. 좋았던 점 (Good / Liked): 오늘 하루 잘된 점, 성과, 만족스러웠던 부분',
-    explanation:
-      '오늘 하루 잘된 점이나 만족스러웠던 부분, 또는 성과를 작성해주세요.',
-    tooltip: '툴팁',
+    label: 'Situation',
+    question: '어떤 일을 하셨나요?',
+    explanation: '끝낸 일과 하고 있는 일, 특이사항 등을 자유롭게 작성해보세요.',
   },
   {
     key: 'improvements',
-    label: 'Lacked',
-    question:
-      '2. 개선할 점 (Bad / Lacked): 아쉬웠던 점, 부족하거나 방해가 되었던 요소',
-    explanation:
-      '오늘 하루 아쉬웠던 점, 방해가 되었던 요소 또는 개선하고 싶은 부분을 작성해주세요.',
-    tooltip: '툴팁',
+    label: 'Task',
+    question: '주요 해결 과제가 무엇이었나요?',
+    explanation: '어떤 목표나 해결해야 할 문제, 맡은 역할에 대한 것도 좋아요.',
   },
   {
     key: 'learnings',
-    label: 'Learned',
-    question: '3. 배운 점 (Learned): 오늘 새롭게 배운 지식, 인사이트',
-    explanation: '오늘 하루 배웠던 점 또는 새로운 통찰과 지식을 작성해주세요.',
-    tooltip: '툴팁',
+    label: 'Action',
+    question: '시도한 일은 무엇이었나요?',
+    explanation:
+      '문제를 해결하거나 목표를 달성하기 위해 어떤 행동을 했는지 작성해보세요.',
   },
   {
     key: 'aspirations',
-    label: 'Longed for',
-    question:
-      '4. 원했던 점 (Longed for / Better): 더 있었으면 좋았을 부분, 내일 시도하고 싶은 변화',
-    explanation:
-      '오늘 이루지 못한 것과 내일 시도해보고 싶은 점을 작성해주세요.',
-    tooltip: '툴팁',
+    label: 'Result',
+    question: '성과는 무엇이었나요?',
+    explanation: '구체적인 결과나 변화를 자유롭게 작성해보세요.',
   },
 ]
