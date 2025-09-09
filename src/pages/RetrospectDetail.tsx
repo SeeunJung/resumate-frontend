@@ -45,6 +45,7 @@ function RetrospectiveDetail() {
       <DetailHeader
         title={retrospect.title}
         reviewDate={retrospect.reviewDate}
+        retroId={Number(retroId)}
       />
       <div className="inline-flex flex-col justify-start px-14 md:px-28 py-16 rounded-xl outline outline-offset-[-1px] outline-[var(--brand--blue--subtle)] gap-6">
         {retrospectDetailItems.map((q) => (

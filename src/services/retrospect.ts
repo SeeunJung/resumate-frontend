@@ -28,8 +28,8 @@ export const editRetrospect = async (id: number, payload: Retrospect) => {
   return res.data.result
 }
 
-export const deleteRetrospect = async (payload: Pick<Retrospect, 'id'>) => {
-  const res = await axiosInstance.delete(`/review/${payload.id}`)
+export const deleteRetrospect = async (id: number) => {
+  const res = await axiosInstance.delete(`/review/${id}`)
   return res.data
 }
 

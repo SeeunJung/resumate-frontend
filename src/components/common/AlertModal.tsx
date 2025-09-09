@@ -26,7 +26,7 @@ function AlertModal({ isOpen, onOpenChange, contents }: AlertModalProps) {
       open={isOpen}
       onOpenChange={onOpenChange}
     >
-      <AlertDialogContent>
+      <AlertDialogContent className="bg-white">
         <AlertDialogHeader>
           <AlertDialogTitle>{contents.title}</AlertDialogTitle>
           <AlertDialogDescription>
