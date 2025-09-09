@@ -1,46 +1,26 @@
-import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '../../utils/cn'
+import { useFolderColorStore } from '@/stores/useFolderColorStore'
 
-const TagVariants = cva(`flex items-center justify-center cursor-pointer`, {
-  variants: {
-    variant: {
-      dark: [
-        'bg-[var(--black)] text-[var(--white)] disabled:bg-[var(--gray-light)] disabled:text-[var-(--gray)]',
-      ],
-      light: [
-        'bg-[var(--white)] text-[var(--gray--dark)] border border-solid border-[var(--gray--light)] disabled:bg-[var(--gray--light)] disabled:text-[var-(--gray)] disabled:border disabled:border-solid disabled:border-[var-(--gray)]',
-      ],
-    },
-    size: {
-      xs: 'px-2 py-1 text-xs font-medium rounded-md',
-      sm: 'px-3 py-1 text-xs font-medium rounded-md',
-      md: 'px-3 py-1 text-sm font-medium rounded-md',
-      lg: 'px-4 py-2 text-sm font-medium rounded-lg',
-      xl: 'px-4 py-2 text-sm font-medium rounded-lg',
-    },
-  },
-  defaultVariants: {
-    variant: 'light',
-    size: 'xs',
-  },
-})
+function Tag({
+  folderId,
+  folderName,
+}: {
+  folderId: number
+  folderName: string
+}) {
+  const getColor = useFolderColorStore((state) => state.getColor)
+  const color = getColor(folderId)
 
-interface TagProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof TagVariants> {
-  className?: string
-  children: React.ReactNode
-}
-
-function Button({ variant, size, className, children, ...rest }: TagProps) {
   return (
     <div
-      className={cn(TagVariants({ variant, size }), className)}
-      {...rest}
+      className={`h-4 px-3 py-3 ${color.bg} rounded-lg border ${color.border} inline-flex justify-center items-center`}
     >
-      {children && children}
+      <span
+        className={`px-1 py-1 rounded-sm text-xs font-semibold ${color.bg} ${color.text}`}
+      >
+        {folderName}
+      </span>
     </div>
   )
 }
 
-export default Button
+export default Tag

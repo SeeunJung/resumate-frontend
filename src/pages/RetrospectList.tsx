@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom'
 import RetrospectiveHeader from '../components/Retrospect/RetrospectHeader'
 import RetrospectiveWrapper from '../components/Retrospect/RetrospectList/RetrospectWrapper'
-import { themeColors } from '../const/themeColors'
 import { useEffect, useMemo, useState } from 'react'
 import type { Folder } from '@/types/Folder'
 import { getFolder } from '@/services/folder'
 import LoadingSpinner from '@/components/common/LoadingSpinner'
 import { requestAnalysis } from '@/services/analysis'
+import { useFolderColorStore } from '@/stores/useFolderColorStore'
 
 function RetrospectiveList() {
   const { folderId } = useParams<{ folderId: string }>()
@@ -14,6 +14,8 @@ function RetrospectiveList() {
   const [loading, setLoading] = useState(true)
   const [selectedFolders, setSelectedFolders] = useState<number[]>([])
   const rootFolderId = Number(folderId)
+  const assignColor = useFolderColorStore((state) => state.assignColor)
+  const getColor = useFolderColorStore((state) => state.getColor)
 
   useEffect(() => {
     const fetchFolders = async () => {
@@ -21,6 +23,9 @@ function RetrospectiveList() {
       try {
         const data = await getFolder(rootFolderId, true)
         setSubFolders(data)
+        data.forEach((folder, idx) => {
+          assignColor(folder.id!, idx)
+        })
       } catch (error) {
         console.error('폴더를 불러오지 못했습니다: ', error)
       } finally {
@@ -99,14 +104,14 @@ function RetrospectiveList() {
         </div>
 
         <div className="flex flex-wrap gap-x-4 gap-y-6">
-          {subFolders.map((folder, idx) => (
+          {subFolders.map((folder) => (
             <div
               key={folder.id}
               className="flex-shrink-0 basis-[280px] max-w-[400px] w-full sm:basis-[calc(50%-1rem)] lg:basis-[calc(25%-1rem)]"
             >
               <RetrospectiveWrapper
                 folder={folder}
-                color={themeColors[idx % themeColors.length]}
+                color={getColor(folder.id!)}
                 selectedFolders={selectedFolders}
                 toggleFolderSelection={toggleFolderSelection}
               />
