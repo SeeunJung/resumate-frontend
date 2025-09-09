@@ -3,9 +3,20 @@ import { defaultInput } from '@/styles/customStyles'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-function InfoInput() {
+interface InfoInputProps {
+  initialData?: {
+    folderId?: number
+    parentFolderId?: number
+    title?: string
+    reviewDate?: string
+  }
+}
+
+function InfoInput({ initialData }: InfoInputProps) {
   const { register, setValue } = useFormContext()
-  const [parentFolderId, setParentFolderId] = useState<number | ''>('')
+  const [parentFolderId, setParentFolderId] = useState<number | ''>(
+    initialData?.parentFolderId || '',
+  )
   const { fetchParentFolders, fetchSubFolders, parentFolders, subFolders } =
     useFolderStore()
 
@@ -14,13 +25,25 @@ function InfoInput() {
   }, [fetchParentFolders])
 
   useEffect(() => {
-    setValue('parentFolderId', parentFolderId)
     if (!parentFolderId) {
       setValue('folderId', 0)
       return
     }
     fetchSubFolders(parentFolderId)
   }, [parentFolderId])
+
+  useEffect(() => {
+    if (initialData) {
+      if (initialData.folderId) {
+        if (initialData.parentFolderId)
+          setParentFolderId(initialData.parentFolderId)
+        if (initialData.folderId) setValue('folderId', initialData.folderId)
+        if (initialData.title) setValue('title', initialData.title)
+        if (initialData.reviewDate)
+          setValue('reviewDate', initialData.reviewDate)
+      }
+    }
+  })
 
   return (
     <div className="flex flex-col gap-4 w-full">

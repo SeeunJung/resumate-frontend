@@ -1,6 +1,15 @@
 import { Card } from '@/styles/customStyles'
 import InfoInput from './InfoInput'
-function InfoCard() {
+
+interface InfoCardProps {
+  initialData?: {
+    folderId?: number
+    title?: string
+    reviewDate?: string
+  }
+}
+
+function InfoCard({ initialData }: InfoCardProps) {
   return (
     <div
       className={Card(
@@ -26,7 +35,7 @@ function InfoCard() {
         <h3 className="justify-center text-lg font-bold">회고 기본 정보</h3>
       </div>
 
-      <InfoInput />
+      <InfoInput initialData={initialData} />
     </div>
   )
 }

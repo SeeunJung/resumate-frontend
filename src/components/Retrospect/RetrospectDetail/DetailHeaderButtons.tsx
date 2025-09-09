@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 interface RetrospectDetailHeaderProps {
   retroId: number
+  onEdit: () => void
   openModal: (modalProps: {
     isError: boolean
     title: string
@@ -14,6 +15,7 @@ interface RetrospectDetailHeaderProps {
 
 function DetailHeaderButtons({
   retroId,
+  onEdit,
   openModal,
 }: RetrospectDetailHeaderProps) {
   const navigate = useNavigate()
@@ -38,11 +40,13 @@ function DetailHeaderButtons({
       })
     }
   }
+
   return (
     <div className="flex justify-start items-center gap-2">
       <Button
         variant={'line'}
         size={'sm'}
+        onClick={onEdit}
       >
         <div className="flex justify-center items-center">
           <span className="w-5 h-5">

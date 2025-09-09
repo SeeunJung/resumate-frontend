@@ -8,10 +8,17 @@ interface DetailHeaderProps {
   title: string
   reviewDate: string
   retroId: number
+  onEdit: () => void
 }
 
-function DetailHeader({ title, reviewDate, retroId }: DetailHeaderProps) {
+function DetailHeader({
+  title,
+  reviewDate,
+  retroId,
+  onEdit,
+}: DetailHeaderProps) {
   const { modalOpen, setModalOpen, modalContent, openModal } = useModal()
+
   return (
     <div className="py-4 w-full max-w-screen mx-auto flex flex-col gap-3">
       <Breadcrumb />
@@ -32,6 +39,7 @@ function DetailHeader({ title, reviewDate, retroId }: DetailHeaderProps) {
 
         <DetailHeaderButtons
           retroId={retroId}
+          onEdit={onEdit}
           openModal={openModal}
         />
         <AlertModal

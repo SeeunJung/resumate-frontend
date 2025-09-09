@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import DetailCard from '../components/Retrospect/RetrospectDetail/DetailCard'
 import DetailHeader from '../components/Retrospect/RetrospectDetail/DetailHeader'
 import type { Retrospect } from '../types/Retrospect'
@@ -9,6 +9,7 @@ import { retrospectDetailItems } from '@/const/retrospectDetailItems'
 
 function RetrospectiveDetail() {
   const { retroId } = useParams<{ retroId: string }>()
+  const navigate = useNavigate()
   const [retrospect, setRetrospect] = useState<Retrospect | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -28,6 +29,10 @@ function RetrospectiveDetail() {
     fetchDetail()
   }, [retroId])
 
+  const handleEdit = () => {
+    navigate('/retrospects/new', { state: { initialData: retrospect } })
+  }
+
   if (loading) {
     return <LoadingSpinner />
   }
@@ -46,6 +51,7 @@ function RetrospectiveDetail() {
         title={retrospect.title}
         reviewDate={retrospect.reviewDate}
         retroId={Number(retroId)}
+        onEdit={handleEdit}
       />
       <div className="inline-flex flex-col justify-start px-14 md:px-28 py-16 rounded-xl outline outline-offset-[-1px] outline-[var(--brand--blue--subtle)] gap-6">
         {retrospectDetailItems.map((q) => (

@@ -5,9 +5,9 @@ import InfoCard from '@/components/Retrospect/RetrospectCreate/InfoCard'
 import QuestionCard from '@/components/Retrospect/RetrospectCreate/QuestionCard'
 import FloatingSidebar from '@/components/Retrospect/RetrospectCreate/FloatingSidebar/FloatingSidebar'
 import type { Retrospect } from '@/types/Retrospect'
-import { createRetrospect } from '@/services/retrospect'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { createRetrospect, editRetrospect } from '@/services/retrospect'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 interface RetrospectFormValues {
   folderId: number
@@ -22,10 +22,12 @@ interface RetrospectFormValues {
 }
 
 function RetrospectCreate() {
+  const location = useLocation()
+  const initialData = location.state?.initialData as Retrospect | undefined
+
   const methods = useForm<RetrospectFormValues>({
-    defaultValues: {
+    defaultValues: initialData || {
       folderId: 0,
-      parentFolderId: undefined,
       title: '',
       reviewDate: '',
       positives: '',
@@ -38,21 +40,24 @@ function RetrospectCreate() {
 
   const navigate = useNavigate()
   const [isCompleted, setIsCompleted] = useState(false)
+  useEffect(() => {
+    if (initialData) {
+      methods.reset(initialData)
+    }
+  }, [initialData])
+
   const onSubmit = async (data: RetrospectFormValues) => {
     try {
       const payload: Retrospect = {
-        folderId: data.folderId,
-        title: data.title,
-        reviewDate: data.reviewDate,
-        positives: data.positives,
-        improvements: data.improvements,
-        learnings: data.learnings,
-        aspirations: data.aspirations,
+        ...data,
         isCompleted,
       }
-      await createRetrospect(payload)
-      console.log('회고 등록 성공')
-      navigate(`/retrospects/${data.parentFolderId ?? 0}`)
+      if (initialData?.id) {
+        await editRetrospect(initialData.id, payload)
+      } else {
+        await createRetrospect(payload)
+      }
+      navigate('/')
     } catch (error) {
       console.error('등록 실패: ', error)
     }
@@ -65,7 +70,7 @@ function RetrospectCreate() {
         className="flex justify-center w-full py-10 px-5 sm:px-10 lg:px-20 gap-8"
       >
         <div className="flex flex-col min-w-lg gap-10">
-          <InfoCard />
+          <InfoCard initialData={initialData} />
           {questionList.map((q) => (
             <QuestionCard
               key={q.key}
@@ -84,14 +89,20 @@ function RetrospectCreate() {
               type="submit"
               variant={'black'}
               size={'sm'}
-              onClick={() => setIsCompleted(true)}
+              onClick={() => {
+                setIsCompleted(true)
+                methods.handleSubmit(onSubmit)()
+              }}
             >
               등록하기
             </Button>
             <Button
               variant={'line'}
               size={'sm'}
-              onClick={() => setIsCompleted(false)}
+              onClick={() => {
+                setIsCompleted(false)
+                methods.handleSubmit(onSubmit)()
+              }}
             >
               임시저장
             </Button>
