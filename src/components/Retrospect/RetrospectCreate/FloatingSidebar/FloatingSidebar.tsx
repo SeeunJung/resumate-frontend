@@ -1,6 +1,5 @@
 import { useEntryStore } from '@/stores/useEntryStore'
 import ProgressIndicatorCard from './ProgressIndicatorCard'
-// import Button from '@/components/common/Button'
 import { floatingSidebarItems } from '@/const/floatingSidebarItems'
 
 function FloatingSidebar() {
@@ -19,27 +18,6 @@ function FloatingSidebar() {
           />
         ))}
       </div>
-
-      {/* <div className="flex flex-col self-stretch gap-2">
-        <Button
-          variant={'black'}
-          size={'sm'}
-        >
-          등록하기
-        </Button>
-        <Button
-          variant={'line'}
-          size={'sm'}
-        >
-          임시저장
-        </Button>
-        <Button
-          variant={'line'}
-          size={'sm'}
-        >
-          불러오기
-        </Button>
-      </div> */}
     </div>
   )
 }

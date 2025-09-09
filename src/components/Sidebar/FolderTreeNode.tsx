@@ -9,7 +9,7 @@ function FolderTreeNode({ node }: FolderNodeProps) {
   return (
     <div className="m-2 flex justify-between items-center">
       <Link
-        to={`/retrospectives/${node.id}`}
+        to={`/retrospects/${node.id}`}
         className="flex justify-between items-center px-2 py-1 bg-[var(--white)] rounded-lg"
       >
         <div className="flex items-center gap-2">

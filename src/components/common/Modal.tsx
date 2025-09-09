@@ -12,9 +12,13 @@ import {
 import Button from './Button'
 
 interface AddFolderModalProps {
+  parentId?: null | number
   trigger?: React.ReactNode
 }
-export function AddFolderModal({ trigger }: AddFolderModalProps) {
+export function AddFolderModal({
+  parentId = null,
+  trigger,
+}: AddFolderModalProps) {
   const [folderName, setFolderName] = useState('')
   const [loading, setLoading] = useState(false)
   const { fetchFolders } = useFolderStore()
@@ -23,7 +27,7 @@ export function AddFolderModal({ trigger }: AddFolderModalProps) {
     if (!folderName.trim()) return
     setLoading(true)
     try {
-      await addFolder({ parentId: null, name: folderName, order: 0 })
+      await addFolder({ parentId, name: folderName, order: 0 })
       setFolderName('')
       await fetchFolders()
     } catch (error) {

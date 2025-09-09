@@ -1,13 +1,24 @@
+import useModal from '@/hooks/useModal'
 import { mainTitle } from '../../../styles/customStyles'
 import Breadcrumb from '../../common/Breadcrumb'
 import DetailHeaderButtons from './DetailHeaderButtons'
+import AlertModal from '@/components/common/AlertModal'
 
 interface DetailHeaderProps {
   title: string
   reviewDate: string
+  retroId: number
+  onEdit: () => void
 }
 
-function DetailHeader({ title, reviewDate }: DetailHeaderProps) {
+function DetailHeader({
+  title,
+  reviewDate,
+  retroId,
+  onEdit,
+}: DetailHeaderProps) {
+  const { modalOpen, setModalOpen, modalContent, openModal } = useModal()
+
   return (
     <div className="py-4 w-full max-w-screen mx-auto flex flex-col gap-3">
       <Breadcrumb />
@@ -26,7 +37,16 @@ function DetailHeader({ title, reviewDate }: DetailHeaderProps) {
           </span>
         </div>
 
-        <DetailHeaderButtons />
+        <DetailHeaderButtons
+          retroId={retroId}
+          onEdit={onEdit}
+          openModal={openModal}
+        />
+        <AlertModal
+          isOpen={modalOpen}
+          onOpenChange={setModalOpen}
+          contents={modalContent}
+        />
       </div>
     </div>
   )

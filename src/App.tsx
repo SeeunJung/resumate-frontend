@@ -21,7 +21,7 @@ function App() {
             element={<OAuthCallback />}
           />
           <Route
-            path="/retrospectives/new"
+            path="/retrospects/new"
             element={<RetrospectCreate />}
           />
         </Route>
@@ -32,11 +32,11 @@ function App() {
             element={<h1>홈페이지 뷰 퍼블리싱 예정</h1>}
           />
           <Route
-            path="/retrospectives/:folderId"
+            path="/retrospects/:folderId"
             element={<RetrospectiveList />}
           />
           <Route
-            path="/retrospectives/:folderId/:retroId"
+            path="/retrospects/:folderId/:retroId"
             element={<RetrospectiveDetail />}
           />
         </Route>

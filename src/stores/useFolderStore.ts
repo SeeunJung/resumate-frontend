@@ -4,14 +4,20 @@ import { create } from 'zustand'
 
 interface FolderStore {
   folders: Folder[]
+  parentFolders: Folder[]
+  subFolders: Folder[]
   loading: boolean
   fetchFolders: () => Promise<void>
+  fetchParentFolders: () => Promise<void>
+  fetchSubFolders: (parentId: number) => Promise<void>
   renameFolder: (id: number, newName: string) => Promise<void>
   removeFolder: (id: number) => Promise<void>
 }
 
 export const useFolderStore = create<FolderStore>((set, get) => ({
   folders: [],
+  parentFolders: [],
+  subFolders: [],
   loading: false,
 
   fetchFolders: async () => {
@@ -21,6 +27,30 @@ export const useFolderStore = create<FolderStore>((set, get) => ({
       set({ folders: data })
     } catch (error) {
       console.error('폴더 불러오기 실패: ', error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  fetchParentFolders: async () => {
+    set({ loading: true })
+    try {
+      const data = await getFolder(undefined, false)
+      set({ parentFolders: data })
+    } catch (error) {
+      console.error('폴더 불러오기 실패: ', error)
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  fetchSubFolders: async (parentId) => {
+    set({ loading: true })
+    try {
+      const data = await getFolder(parentId)
+      set({ subFolders: data })
+    } catch (error) {
+      console.error('하위 폴더 불러오기 실패: ', error)
     } finally {
       set({ loading: false })
     }

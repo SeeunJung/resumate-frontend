@@ -15,7 +15,7 @@ function ProgressIndicatorCard({
 }: ProgressIndicatorCardProps) {
   return (
     <div
-      className={`flex justify-between items-center w-full p-3 gap-4 rounded-sm overflow-hidden
+      className={`flex justify-between items-center w-full p-3  gap-4 rounded-lg overflow-hidden
         ${filled ? 'bg-[var(--brand--blue--subtler)] text-[var(--brand--blue--strong)]' : 'bg-white border-[var(--gray)]'}`}
     >
       <div className="flex flex-col flex-1 justify-start items-start gap-1 whitespace-nowrap">
