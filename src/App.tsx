@@ -6,6 +6,7 @@ import EmptyLayout from './layouts/EmptyLayout'
 import RetrospectCreate from './pages/RetrospectCreate'
 import Login from './pages/Login'
 import OAuthCallback from './components/Login/OAuthCallback'
+import Home from './pages/Home'
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
         <Route element={<DefaultLayout />}>
           <Route
             path="/"
-            element={<h1>홈페이지 뷰 퍼블리싱 예정</h1>}
+            element={<Home />}
           />
           <Route
             path="/retrospects/:folderId"
