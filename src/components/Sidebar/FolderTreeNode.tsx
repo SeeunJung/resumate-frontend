@@ -7,10 +7,10 @@ interface FolderNodeProps {
 
 function FolderTreeNode({ node }: FolderNodeProps) {
   return (
-    <div className="m-2 flex justify-between items-center">
+    <div className="m-2 px-2 flex justify-between items-center rounded-md hover:bg-[var(--brand--blue--subtler)]">
       <Link
         to={`/retrospects/${node.id}`}
-        className="flex justify-between items-center px-2 py-1 bg-[var(--white)] rounded-lg"
+        className="flex justify-between items-center px-2 py-1 rounded-lg"
       >
         <div className="flex items-center gap-2">
           <span className="flex w-5 h-5 items-center justify-center shrink-0">

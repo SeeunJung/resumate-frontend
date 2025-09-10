@@ -1,7 +1,13 @@
+import { useNavigate } from 'react-router-dom'
+
 function Logo() {
+  const navigate = useNavigate()
   return (
-    <div className="self-stretch p-2 flex justify-center items-center gap-2">
-      <div className="text-lg font-bold">RESUMATE</div>
+    <div
+      className="self-stretch p-2 flex justify-center items-center gap-2"
+      onClick={() => navigate('/')}
+    >
+      <img src="/sidebar_logo.png" />
     </div>
   )
 }
