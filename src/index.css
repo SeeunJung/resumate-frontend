@@ -28,6 +28,10 @@ body * {
   --brand--blue--subtlest: rgba(248, 251, 255, 1);
   --brand--green: rgba(0, 188, 172, 1);
   --brand--green--subtle: rgba(175, 233, 227, 1);
+  --brand--green--subtler: rgba(214, 245, 242, 1);
+
+  --status--success: rgba(2, 156, 140, 1);
+  --status--danger: rgba(201, 66, 73, 1);
 
   --green: rgba(181, 238, 232, 1);
   --green--light: rgba(235, 248, 250, 1);

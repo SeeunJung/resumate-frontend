@@ -10,7 +10,7 @@ import type { Folder } from '@/types/Folder'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-function RetrospectAnalysis() {
+function RetrospectMaterial() {
   const { parentId } = useParams<{ parentId: string }>()
   const [subFolders, setSubFolders] = useState<Folder[]>([])
   const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null)
@@ -90,4 +90,4 @@ function RetrospectAnalysis() {
   )
 }
 
-export default RetrospectAnalysis
+export default RetrospectMaterial

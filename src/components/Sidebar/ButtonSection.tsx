@@ -22,8 +22,8 @@ function ButtonSection() {
         }
       />
       <RouteButton
-        label="재료"
-        path="/"
+        label="소재 보관함"
+        path="/materials"
         icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"
