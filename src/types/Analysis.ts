@@ -3,8 +3,13 @@ export type Analysis = {
   folderId: number
   folderName: string
   status: string
-  inputToken: number
-  outputToken: number
+  summary?: string
+  strength?: string
+  suggestion?: string
+  keyword?: string
+  recKeyword?: string
+  inputToken?: number
+  outputToken?: number
   createdAt: string
   completedAt: string
 }

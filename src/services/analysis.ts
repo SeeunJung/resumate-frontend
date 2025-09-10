@@ -11,12 +11,12 @@ export const requestAnalysis = async (folders: number[]) => {
   return res.data
 }
 
-export const getAnalysis = async (folderId: number, id: number) => {
-  const res = await axiosInstance.get(`/analysis/${folderId}?id=${id}`)
+export const getAnalysis = async (folderId: number) => {
+  const res = await axiosInstance.get(`/analysis/${folderId}`)
   return res.data.result
 }
 
 export const getAnalysisList = async (params?: GetAnalysisListParams) => {
   const res = await axiosInstance.get('/analysis', { params })
-  return res.data
+  return res.data.result
 }

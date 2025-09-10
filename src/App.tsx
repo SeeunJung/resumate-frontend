@@ -7,6 +7,7 @@ import RetrospectCreate from './pages/RetrospectCreate'
 import Login from './pages/Login'
 import OAuthCallback from './components/Login/OAuthCallback'
 import Home from './pages/Home'
+import RetrospectAnalysis from './pages/RetrospectAnalysis'
 
 function App() {
   return (
@@ -39,6 +40,10 @@ function App() {
           <Route
             path="/retrospects/:folderId/:retroId"
             element={<RetrospectiveDetail />}
+          />
+          <Route
+            path="/materials/:parentId"
+            element={<RetrospectAnalysis />}
           />
         </Route>
       </Routes>
