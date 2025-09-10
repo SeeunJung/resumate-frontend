@@ -3,11 +3,14 @@ import { mainTitle } from '../../../styles/customStyles'
 import Breadcrumb from '../../common/Breadcrumb'
 import DetailHeaderButtons from './DetailHeaderButtons'
 import AlertModal from '@/components/common/AlertModal'
+import Tag from '@/components/common/Tag'
 
 interface DetailHeaderProps {
   title: string
   reviewDate: string
   retroId: number
+  folderId: number
+  folderName: string
   onEdit: () => void
 }
 
@@ -15,6 +18,8 @@ function DetailHeader({
   title,
   reviewDate,
   retroId,
+  folderId,
+  folderName,
   onEdit,
 }: DetailHeaderProps) {
   const { modalOpen, setModalOpen, modalContent, openModal } = useModal()
@@ -24,11 +29,10 @@ function DetailHeader({
       <Breadcrumb />
       <div className="inline-flex justify-between items-end">
         <div className="inline-flex flex-col justify-start items-start gap-1.5">
-          <div className="h-4 px-3 py-3 bg-[var(--green--light)] rounded-lg border border-[var(--green)] inline-flex justify-center items-center">
-            <div className="justify-start text-xs text-[var(--green--dark)] font-semibold">
-              기획
-            </div>
-          </div>
+          <Tag
+            folderId={folderId}
+            folderName={folderName}
+          />
           <div className="flex">
             <h2 className={mainTitle()}>{title}</h2>
           </div>
