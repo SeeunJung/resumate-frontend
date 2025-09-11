@@ -1,5 +1,5 @@
 import { mainTitle } from '@/styles/customStyles'
-import Breadcrumb from '../common/Breadcrumb'
+import CustomBreadcrumb from '../common/Breadcrumb'
 
 interface AnalysisHeaderProps {
   folderName: string
@@ -8,7 +8,7 @@ interface AnalysisHeaderProps {
 function AnalysisHeader({ folderName }: AnalysisHeaderProps) {
   return (
     <div className="py-4 w-full max-w-screen mx-auto flex flex-col gap-8">
-      <Breadcrumb />
+      <CustomBreadcrumb materialFolderName={folderName} />
       <div className="flex justify-between items-center">
         <h1 className={mainTitle()}>{folderName}</h1>
       </div>

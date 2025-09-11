@@ -1,9 +1,9 @@
 import useModal from '@/hooks/useModal'
 import { mainTitle } from '../../../styles/customStyles'
-import Breadcrumb from '../../common/Breadcrumb'
 import DetailHeaderButtons from './DetailHeaderButtons'
 import AlertModal from '@/components/common/AlertModal'
 import Tag from '@/components/common/Tag'
+import CustomBreadcrumb from '../../common/Breadcrumb'
 
 interface DetailHeaderProps {
   title: string
@@ -26,7 +26,10 @@ function DetailHeader({
 
   return (
     <div className="py-4 w-full max-w-screen mx-auto flex flex-col gap-3">
-      <Breadcrumb />
+      <CustomBreadcrumb
+        folderName={folderName}
+        retroTitle={title}
+      />
       <div className="inline-flex justify-between items-end">
         <div className="inline-flex flex-col justify-start items-start gap-1.5">
           <Tag

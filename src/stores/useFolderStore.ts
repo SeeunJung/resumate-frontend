@@ -12,8 +12,6 @@ interface FolderStore {
   fetchSubFolders: (parentId: number) => Promise<void>
   renameFolder: (id: number, newName: string) => Promise<void>
   removeFolder: (id: number) => Promise<void>
-
-  getParentFolderBySubfolderId: (subfolderId: number) => Folder | undefined
 }
 
 export const useFolderStore = create<FolderStore>((set, get) => ({
@@ -80,11 +78,5 @@ export const useFolderStore = create<FolderStore>((set, get) => ({
     } catch (error) {
       console.error('폴더 삭제 실패: ', error)
     }
-  },
-
-  getParentFolderBySubfolderId: (subfolderId: number) => {
-    const subFolder = get().subFolders.find((f) => f.id === subfolderId)
-    if (!subFolder?.parentId) return undefined
-    return get().parentFolders.find((f) => f.id === subFolder.parentId)
   },
 }))
