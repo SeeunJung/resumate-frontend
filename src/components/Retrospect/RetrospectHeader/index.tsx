@@ -2,14 +2,17 @@ import { useNavigate } from 'react-router-dom'
 import { mainTitle } from '../../../styles/customStyles'
 import Breadcrumb from '../../common/Breadcrumb'
 import Button from '../../common/Button'
+import AddFolderModal from '@/components/common/Modal'
 
 interface RetrospectiveHeaderProps {
   folderName: string
+  folderId: number
   onAnalysisClick?: () => void
 }
 
 function RetrospectiveHeader({
   folderName,
+  folderId,
   onAnalysisClick,
 }: RetrospectiveHeaderProps) {
   const navigate = useNavigate()
@@ -20,6 +23,19 @@ function RetrospectiveHeader({
       <div className="flex justify-between items-center">
         <h1 className={mainTitle()}>{folderName}</h1>
         <div className="flex gap-2">
+          <AddFolderModal
+            parentId={folderId}
+            trigger={
+              <Button
+                size={'md'}
+                variant={'line'}
+                className="whitespace-nowrap"
+              >
+                태그 추가하기
+              </Button>
+            }
+          />
+
           <Button
             size={'md'}
             variant={'line'}

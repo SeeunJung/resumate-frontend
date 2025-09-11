@@ -21,7 +21,8 @@ export function AddFolderModal({
 }: AddFolderModalProps) {
   const [folderName, setFolderName] = useState('')
   const [loading, setLoading] = useState(false)
-  const { fetchFolders } = useFolderStore()
+  const [open, setOpen] = useState(false)
+  const { fetchFolders, fetchSubFolders } = useFolderStore()
 
   const handleAdd = async () => {
     if (!folderName.trim()) return
@@ -29,7 +30,12 @@ export function AddFolderModal({
     try {
       await addFolder({ parentId, name: folderName, order: 0 })
       setFolderName('')
-      await fetchFolders()
+      if (parentId !== null) {
+        await fetchSubFolders(parentId)
+      } else {
+        await fetchFolders()
+      }
+      setOpen(false)
     } catch (error) {
       console.error('폴더 추가 실패: ', error)
     } finally {
@@ -38,11 +44,16 @@ export function AddFolderModal({
   }
 
   return (
-    <Dialog>
+    <Dialog
+      open={open}
+      onOpenChange={setOpen}
+    >
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="flex flex-col bg-white w-[300px] gap-4">
         <DialogHeader>
-          <DialogTitle className="flex justify-start">새 폴더 추가</DialogTitle>
+          <DialogTitle className="flex justify-start">
+            {parentId ? '새 태그 추가' : '새 폴더 추가'}
+          </DialogTitle>
         </DialogHeader>
 
         <input
