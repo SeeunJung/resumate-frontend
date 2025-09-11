@@ -4,6 +4,7 @@ import HomeRetrospect from '@/components/Home/HomeRetrospect/HomeRetrospect'
 import CustomCalendar from '@/components/Home/HomeSection/Calendar'
 import HomeStatistics from '@/components/Home/HomeSection/HomeStatistics'
 import { useFolderStore } from '@/stores/useFolderStore'
+import { isOAuthCallback } from '@/utils/oauth'
 import { useEffect } from 'react'
 
 function Home() {
@@ -12,6 +13,13 @@ function Home() {
   useEffect(() => {
     fetchFolders()
   }, [fetchFolders])
+
+  useEffect(() => {
+    if (isOAuthCallback()) {
+      console.log('OAuth 콜백 감지')
+      console.log('OAuth 콜백 홈페이지 리다이렉트 완료')
+    }
+  })
 
   return (
     <main className="flex flex-col pt-20 pb-10 gap-6 pr-10 lg:pr-20">

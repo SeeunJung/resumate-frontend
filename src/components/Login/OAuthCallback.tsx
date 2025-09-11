@@ -1,5 +1,5 @@
 import { useAuthStore } from '@/stores/useAuthStore'
-import { getOAuthError, isOAuthCallback } from '@/utils/oauth'
+import { getOAuthError, getStateFromUrl, isOAuthCallback } from '@/utils/oauth'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LoadingSpinner from '../common/LoadingSpinner'
@@ -23,8 +23,15 @@ function OAuthCallback() {
           return
         }
 
-        navigate('/')
+        const state = getStateFromUrl()
+        if (!state) {
+          navigate('/login')
+          return
+        }
+
+        //OAuth 성공: 홈으로 리다이렉트
       } catch (error) {
+        console.error('로그인 중 오류가 발생했습니다: ', error)
         navigate('/login')
       } finally {
         setIsProcessing(false)
