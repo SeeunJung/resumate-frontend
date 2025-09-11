@@ -10,20 +10,18 @@ function RetrospectMaterialList() {
     fetchAnalysisList()
   }, [])
 
-  if (!analysisList.length) {
-    return (
-      <div className="flex justify-center items-center">
-        <span className="text-md text-black text-bold">
-          분석 데이터가 존재하지 않습니다.
-        </span>
-      </div>
-    )
-  }
-
   return (
     <div className="flex flex-col py-16">
       <h2 className={mainTitle()}>소재 보관함</h2>
-      <AnalysisList analyses={analysisList} />
+      {analysisList.length ? (
+        <AnalysisList analyses={analysisList} />
+      ) : (
+        <div className="flex justify-center items-center mt-4">
+          <span className="text-md text-[var(--brand--black--default)] text-bold">
+            분석 데이터가 존재하지 않습니다.
+          </span>
+        </div>
+      )}
     </div>
   )
 }
