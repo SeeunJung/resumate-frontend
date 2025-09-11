@@ -31,10 +31,7 @@ export const deleteFolder = async (id: number): Promise<FolderResponse> => {
   return res.data
 }
 
-export const modifyFolderName = async (
-  id: number,
-  payload: string,
-): Promise<FolderResponse> => {
-  const res = await axiosInstance.patch(`/folder/${id}`, payload)
+export const modifyFolderName = async (id: number, payload: string) => {
+  const res = await axiosInstance.patch(`/folder/${id}`, { name: payload })
   return res.data
 }
