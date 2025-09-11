@@ -33,7 +33,7 @@ function AnalysisListItem({ analysis }: AnalysisListItemProps) {
         'hover:bg-[var(--gray--light)]',
         'cursor-pointer',
       )}
-      onClick={() => navigate(`/materials`)}
+      onClick={() => navigate(`/materials/${analysis.parentFolderId}`)}
     >
       <span className="flex justify-start text-[var(--black)] text-sm font-medium leading-relaxed">
         {parentName || '대분류 없음'}

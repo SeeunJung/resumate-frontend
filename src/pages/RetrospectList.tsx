@@ -80,7 +80,13 @@ function RetrospectiveList() {
   }
 
   if (!folderId) {
-    return <div>잘못된 폴더 ID입니다.</div>
+    return (
+      <div className="flex flex-col p-6 min-w-60 mt-10">
+        <span className="text-xs text-[var(--brand--black--default)]">
+          잘못된 폴더 ID입니다.
+        </span>
+      </div>
+    )
   }
 
   const parentName = subFolders[0]?.parentName ?? ''
@@ -89,6 +95,7 @@ function RetrospectiveList() {
     <div className="flex flex-col gap-6">
       <RetrospectiveHeader
         folderName={parentName}
+        folderId={rootFolderId}
         onAnalysisClick={handleAnalysisClick}
       />
 

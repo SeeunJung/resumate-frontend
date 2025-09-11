@@ -33,16 +33,16 @@ function Home() {
         </section>
 
         <div className="flex flex-col gap-4 flex-1">
-          <div className="flex gap-3 w-full">
-            <section className="flex-1 h-[250px]">
+          <div className="flex gap-3 w-full items-stretch">
+            <section className="flex-1 min-h-[250px]">
               <HomeStatistics />
             </section>
-            <section className="flex-1 h-[250px]">
+            <section className="flex-1 min-h-[250px]">
               <CustomCalendar />
             </section>
           </div>
 
-          <section className="w-full">
+          <section className="w-full min-h-[400px]">
             <HomeRetrospect />
           </section>
         </div>

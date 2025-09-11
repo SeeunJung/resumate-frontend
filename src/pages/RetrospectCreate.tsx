@@ -99,6 +99,7 @@ function RetrospectCreate() {
             <FloatingSidebar />
             <div className="flex flex-col self-stretch gap-2">
               <Button
+                type="button"
                 variant={'black'}
                 size={'sm'}
                 onClick={() => {
