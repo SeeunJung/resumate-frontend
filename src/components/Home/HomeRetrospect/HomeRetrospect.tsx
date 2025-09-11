@@ -34,7 +34,7 @@ function HomeRetrospect() {
 
   if (retrospects.length === 0) {
     return (
-      <div className="flex justify-center items-center">
+      <div className={Card('flex', 'flex-col', 'p-6', 'min-w-60', 'mt-4')}>
         <span className="text-xs text-[var(--brand--black--default)]">
           최근 회고가 없습니다.
         </span>

@@ -44,8 +44,20 @@ function HomeAnalysis() {
 
   if (!latestAnalysis) {
     return (
-      <div className="flex justify-center items-center">
-        <span>아직 분석 결과가 없습니다.</span>
+      <div
+        className={Card(
+          'flex',
+          'flex-col',
+          'p-6',
+          'min-w-60',
+          'gap-6',
+          'text-xs',
+          'h-full',
+        )}
+      >
+        <span className="text-xs text-[var(--brand--black--default)]">
+          아직 분석 결과가 없습니다.
+        </span>
       </div>
     )
   }
@@ -63,8 +75,20 @@ function HomeAnalysis() {
 
   if (!analysisDetail) {
     return (
-      <div className="flex justify-center items-center">
-        <span>분석 상세 정보를 불러올 수 없습니다.</span>
+      <div
+        className={Card(
+          'flex',
+          'flex-col',
+          'p-6',
+          'min-w-60',
+          'gap-6',
+          'text-xs',
+          'h-full',
+        )}
+      >
+        <span className="text-xs text-[var(--brand--black--default)]">
+          분석 상세 정보를 불러올 수 없습니다.
+        </span>
       </div>
     )
   }
