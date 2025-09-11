@@ -106,7 +106,8 @@ export const useAuthStore = create<AuthStore>()(
           const response = await verification()
 
           if (response?.data) {
-            const userData = response.data
+            const userData = response.result
+            console.log(userData)
             let deviceId = currentState.user.deviceId
             if (!deviceId) {
               deviceId = crypto.randomUUID()
