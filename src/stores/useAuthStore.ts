@@ -26,6 +26,7 @@ interface AuthActions {
   validateToken: () => Promise<boolean>
   clearError: () => void
   setLoading: (loading: boolean) => void
+  updateNickname: (nickname: string) => void
 }
 
 type AuthStore = AuthState & AuthActions
@@ -151,11 +152,20 @@ export const useAuthStore = create<AuthStore>()(
       setLoading: (loading: boolean) => {
         set({ isLoading: loading })
       },
+
+      updateNickname: (nickname: string) =>
+        set((state) => ({
+          user: {
+            ...state.user,
+            nickname,
+          },
+        })),
     }),
+
     {
       name: 'auth-storage',
       partialize: (state) => {
-        if (state.isAuthenticated && state.user.memberId) {
+        if (state.isAuthenticated) {
           const persistedData = {
             isAuthenticated: state.isAuthenticated,
             user: {

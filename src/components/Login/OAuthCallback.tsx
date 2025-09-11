@@ -30,6 +30,7 @@ function OAuthCallback() {
         }
 
         //OAuth 성공: 홈으로 리다이렉트
+        navigate('/')
       } catch (error) {
         console.error('로그인 중 오류가 발생했습니다: ', error)
         navigate('/login')
