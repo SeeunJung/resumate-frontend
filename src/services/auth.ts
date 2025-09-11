@@ -10,7 +10,8 @@ export const verification = async () => {
 }
 
 export const logout = async (deviceId: string) => {
-  await axiosInstance.post(`/auth/logout?deviceId=${deviceId}`)
+  const res = await axiosInstance.post(`/auth/logout?deviceId=${deviceId}`)
+  return res
 }
 
 export const setNickname = async (payload: setNicknameProps) => {

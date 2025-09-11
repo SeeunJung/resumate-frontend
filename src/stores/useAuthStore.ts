@@ -165,7 +165,7 @@ export const useAuthStore = create<AuthStore>()(
     {
       name: 'auth-storage',
       partialize: (state) => {
-        if (state.isAuthenticated && state.user.memberId) {
+        if (state.isAuthenticated) {
           const persistedData = {
             isAuthenticated: state.isAuthenticated,
             user: {
