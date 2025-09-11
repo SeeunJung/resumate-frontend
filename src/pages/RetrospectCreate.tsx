@@ -40,7 +40,6 @@ function RetrospectCreate() {
   })
 
   const navigate = useNavigate()
-  const [isCompleted, setIsCompleted] = useState(false)
   const [draftModalOpen, setDraftModalOpen] = useState(false)
 
   useEffect(() => {
@@ -49,7 +48,7 @@ function RetrospectCreate() {
     }
   }, [initialData])
 
-  const onSubmit = async (data: RetrospectFormValues) => {
+  const onSubmit = async (data: RetrospectFormValues, isCompleted: boolean) => {
     try {
       const payload: Retrospect = {
         ...data,
@@ -79,9 +78,7 @@ function RetrospectCreate() {
       </div>
       <FormProvider {...methods}>
         <form
-          onSubmit={methods.handleSubmit((data) =>
-            onSubmit({ ...data, isCompleted: true }),
-          )}
+          onSubmit={(e) => e.preventDefault()}
           className="flex justify-center w-full py-10 px-5 sm:px-10 lg:px-20 gap-8"
         >
           <div className="flex flex-col min-w-lg gap-10">
@@ -104,6 +101,9 @@ function RetrospectCreate() {
                 type="submit"
                 variant={'black'}
                 size={'sm'}
+                onClick={() =>
+                  methods.handleSubmit((data) => onSubmit(data, true))()
+                }
               >
                 등록하기
               </Button>
@@ -112,8 +112,7 @@ function RetrospectCreate() {
                 variant={'line'}
                 size={'sm'}
                 onClick={() => {
-                  setIsCompleted(false)
-                  methods.handleSubmit(onSubmit)()
+                  methods.handleSubmit((data) => onSubmit(data, false))()
                 }}
               >
                 임시저장
