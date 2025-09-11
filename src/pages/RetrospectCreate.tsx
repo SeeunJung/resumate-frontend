@@ -79,7 +79,9 @@ function RetrospectCreate() {
       </div>
       <FormProvider {...methods}>
         <form
-          onSubmit={methods.handleSubmit(onSubmit)}
+          onSubmit={methods.handleSubmit((data) =>
+            onSubmit({ ...data, isCompleted: true }),
+          )}
           className="flex justify-center w-full py-10 px-5 sm:px-10 lg:px-20 gap-8"
         >
           <div className="flex flex-col min-w-lg gap-10">
@@ -99,13 +101,9 @@ function RetrospectCreate() {
             <FloatingSidebar />
             <div className="flex flex-col self-stretch gap-2">
               <Button
-                type="button"
+                type="submit"
                 variant={'black'}
                 size={'sm'}
-                onClick={() => {
-                  setIsCompleted(true)
-                  methods.handleSubmit(onSubmit)()
-                }}
               >
                 등록하기
               </Button>
