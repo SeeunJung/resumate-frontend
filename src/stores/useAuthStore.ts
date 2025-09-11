@@ -105,7 +105,7 @@ export const useAuthStore = create<AuthStore>()(
           const currentState = useAuthStore.getState()
           const response = await verification()
 
-          if (response?.data) {
+          if (response?.result) {
             const userData = response.result
             console.log(userData)
             let deviceId = currentState.user.deviceId
