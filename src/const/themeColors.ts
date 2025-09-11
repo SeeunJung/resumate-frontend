@@ -4,17 +4,21 @@ export const themeColors: ThemeColor[] = [
   {
     bg: 'bg-[var(--green--light)]',
     text: 'text-[var(--green--dark)]',
-  },
-  {
-    bg: 'bg-[var(--purple--light)]',
-    text: 'text-[var(--purple--dark)]',
+    border: 'border-[var(--green)]',
   },
   {
     bg: 'bg-[var(--blue--light)]',
     text: 'text-[var(--blue--dark)]',
+    border: 'border-[var(--blue)]',
   },
   {
-    bg: 'bg-[var(--red--light)]',
-    text: 'text-[var(--red--dark)]',
+    bg: 'bg-[var(--yellow--light)]',
+    text: 'text-[var(--yellow--dark)]',
+    border: 'border-[var(--yellow)]',
+  },
+  {
+    bg: 'bg-[var(--purple--light)]',
+    text: 'text-[var(--purple--dark)]',
+    border: 'border-[var(--purple)]',
   },
 ]

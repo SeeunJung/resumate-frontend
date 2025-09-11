@@ -67,65 +67,76 @@ function RetrospectCreate() {
   }
 
   return (
-    <FormProvider {...methods}>
-      <form
-        onSubmit={methods.handleSubmit(onSubmit)}
-        className="flex justify-center w-full py-10 px-5 sm:px-10 lg:px-20 gap-8"
+    <div className="flex flex-col p-2">
+      <div
+        className="sticky top-0 cursor-pointer"
+        onClick={() => navigate('/')}
       >
-        <div className="flex flex-col min-w-lg gap-10">
-          <InfoCard initialData={initialData} />
-          {questionList.map((q) => (
-            <QuestionCard
-              key={q.key}
-              name={q.key}
-              label={q.label}
-              question={q.question}
-              explanation={q.explanation}
-            />
-          ))}
-        </div>
-
-        <div className="flex flex-col w-fit sticky top-10 self-start gap-2">
-          <FloatingSidebar />
-          <div className="flex flex-col self-stretch gap-2">
-            <Button
-              variant={'black'}
-              size={'sm'}
-              onClick={() => {
-                setIsCompleted(true)
-                methods.handleSubmit(onSubmit)()
-              }}
-            >
-              등록하기
-            </Button>
-            <Button
-              type="button"
-              variant={'line'}
-              size={'sm'}
-              onClick={() => {
-                setIsCompleted(false)
-                methods.handleSubmit(onSubmit)()
-              }}
-            >
-              임시저장
-            </Button>
-            <Button
-              type="button"
-              variant={'line'}
-              size={'sm'}
-              onClick={() => setDraftModalOpen(true)}
-            >
-              불러오기
-            </Button>
+        <img
+          src="/sidebar_logo.png"
+          className="w-35"
+        />
+      </div>
+      <FormProvider {...methods}>
+        <form
+          onSubmit={methods.handleSubmit(onSubmit)}
+          className="flex justify-center w-full py-10 px-5 sm:px-10 lg:px-20 gap-8"
+        >
+          <div className="flex flex-col min-w-lg gap-10">
+            <InfoCard initialData={initialData} />
+            {questionList.map((q) => (
+              <QuestionCard
+                key={q.key}
+                name={q.key}
+                label={q.label}
+                question={q.question}
+                explanation={q.explanation}
+              />
+            ))}
           </div>
-        </div>
-      </form>
 
-      <DraftModal
-        isOpen={draftModalOpen}
-        onClose={() => setDraftModalOpen(false)}
-      />
-    </FormProvider>
+          <div className="flex flex-col w-fit sticky top-10 self-start gap-2">
+            <FloatingSidebar />
+            <div className="flex flex-col self-stretch gap-2">
+              <Button
+                variant={'black'}
+                size={'sm'}
+                onClick={() => {
+                  setIsCompleted(true)
+                  methods.handleSubmit(onSubmit)()
+                }}
+              >
+                등록하기
+              </Button>
+              <Button
+                type="button"
+                variant={'line'}
+                size={'sm'}
+                onClick={() => {
+                  setIsCompleted(false)
+                  methods.handleSubmit(onSubmit)()
+                }}
+              >
+                임시저장
+              </Button>
+              <Button
+                type="button"
+                variant={'line'}
+                size={'sm'}
+                onClick={() => setDraftModalOpen(true)}
+              >
+                불러오기
+              </Button>
+            </div>
+          </div>
+        </form>
+
+        <DraftModal
+          isOpen={draftModalOpen}
+          onClose={() => setDraftModalOpen(false)}
+        />
+      </FormProvider>
+    </div>
   )
 }
 

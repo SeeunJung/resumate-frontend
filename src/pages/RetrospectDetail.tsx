@@ -51,6 +51,8 @@ function RetrospectiveDetail() {
         title={retrospect.title}
         reviewDate={retrospect.reviewDate}
         retroId={Number(retroId)}
+        folderId={retrospect.folderId}
+        folderName={retrospect.folderName!}
         onEdit={handleEdit}
       />
       <div className="inline-flex flex-col justify-start px-14 md:px-28 py-16 rounded-xl outline outline-offset-[-1px] outline-[var(--brand--blue--subtle)] gap-6">

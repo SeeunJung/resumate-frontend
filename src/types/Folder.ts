@@ -11,4 +11,5 @@ export type Folder = {
 export type ThemeColor = {
   bg: string
   text: string
+  border: string
 }

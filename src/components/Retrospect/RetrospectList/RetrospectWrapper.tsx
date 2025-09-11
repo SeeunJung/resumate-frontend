@@ -5,10 +5,18 @@ import PreviewCardGrid from './PreviewCardGrid'
 interface RetrospectiveWrapperProps {
   folder: Folder
   color: ThemeColor
+  selectedFolders: number[]
+  toggleFolderSelection: (id: number) => void
 }
 
-function RetrospectiveWrapper({ folder, color }: RetrospectiveWrapperProps) {
+function RetrospectiveWrapper({
+  folder,
+  color,
+  selectedFolders = [],
+  toggleFolderSelection,
+}: RetrospectiveWrapperProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const isChecked = selectedFolders.includes(folder.id!)
 
   return (
     <div className={`flex flex-col p-3 rounded-xl ${color.bg}`}>
@@ -17,8 +25,10 @@ function RetrospectiveWrapper({ folder, color }: RetrospectiveWrapperProps) {
           <input
             type="checkbox"
             className="cursor-pointer"
+            checked={isChecked}
             onChange={(e) => {
               e.stopPropagation()
+              toggleFolderSelection(folder.id!)
             }}
           />
           <span className={`text-sm font-bold ${color.text}`}>

@@ -5,7 +5,7 @@ type OAuthProvider = 'kakao' | 'naver' | 'google'
 export const getLoginUrl = (provider: OAuthProvider): string => {
   const state = useAuthStore.getState()
   const deviceId = state.user.deviceId
-  const baseUrl = import.meta.env.VITE_BASE_URL
+  const baseUrl = import.meta.env.VITE_LOGIN_BASE_URL
 
   const tempDeviceId = deviceId || crypto.randomUUID()
 
