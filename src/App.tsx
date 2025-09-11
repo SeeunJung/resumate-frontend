@@ -34,7 +34,7 @@ function App() {
           <Route
             path="/"
             element={
-              <AuthWrapper requireAuth={false}>
+              <AuthWrapper requireAuth={true}>
                 <Home />
               </AuthWrapper>
             }
