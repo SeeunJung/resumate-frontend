@@ -33,10 +33,10 @@ function RetrospectMaterial() {
   }, [parentId])
 
   useEffect(() => {
-    if (selectedFolderId != null) {
-      fetchAnalysis(selectedFolderId)
+    if (subFolders.length > 0) {
+      subFolders.forEach((folder) => fetchAnalysis(folder.id!))
     }
-  }, [selectedFolderId])
+  }, [subFolders])
 
   return (
     <div className="flex flex-col justify-start items-start gap-4 py-10">
@@ -48,18 +48,20 @@ function RetrospectMaterial() {
         onValueChange={(val) => setSelectedFolderId(Number(val))}
       >
         <TabsList className="flex flex-wrap gap-2">
-          {subFolders?.map((folder) => (
-            <TabsTrigger
-              key={folder.id}
-              value={folder.id!.toString()}
-              className="border-none p-0 shadow-none"
-            >
-              <Tag
-                folderName={folder.name!}
-                folderId={folder.id!}
-              />
-            </TabsTrigger>
-          ))}
+          {subFolders?.map((folder) =>
+            folderAnalysis[folder.id!] ? (
+              <TabsTrigger
+                key={folder.id}
+                value={folder.id!.toString()}
+                className="border-none p-0 shadow-none"
+              >
+                <Tag
+                  folderName={folder.name!}
+                  folderId={folder.id!}
+                />
+              </TabsTrigger>
+            ) : null,
+          )}
         </TabsList>
 
         {subFolders?.map((folder) => (
