@@ -2,8 +2,10 @@ import LoadingSpinner from '@/components/common/LoadingSpinner'
 import { useAnalysisStore } from '@/stores/useAnalysisStore'
 import { Card } from '@/styles/customStyles'
 import { useEffect, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function HomeAnalysis() {
+  const navigate = useNavigate()
   const {
     analysisList,
     listStatus,
@@ -113,21 +115,54 @@ function HomeAnalysis() {
           <span className="flex text-black text-md font-bold leading-loose">
             강점 TOP 3
           </span>
-          <div className="flex self-stretch justify-start text-black text-sm leading-relaxed">
-            {analysisDetail.keyword || '강점 정보가 없습니다.'}
-          </div>
+          {analysisDetail.keyword ? (
+            analysisDetail.keyword
+              .replace(/^\[|\]$/g, '')
+              .split(',')
+              .map((word) => word.trim())
+              .map((word, idx) => (
+                <div
+                  key={idx}
+                  className="flex self-stretch justify-start text-black text-sm leading-relaxed"
+                >
+                  - {word}
+                </div>
+              ))
+          ) : (
+            <div className="flex self-stretch justify-start text-black text-sm leading-relaxed">
+              강점 정보가 없습니다.
+            </div>
+          )}
         </div>
 
         <div>
           <span className="flex text-black text-md font-bold leading-loose">
             추천 항목
           </span>
-          <div className="flex self-stretch justify-start text-black text-sm leading-relaxed">
-            {analysisDetail.recKeyword || '추천 항목 정보가 없습니다.'}
-          </div>
+          {analysisDetail.recKeyword ? (
+            analysisDetail.recKeyword
+              .replace(/^\[|\]$/g, '')
+              .split(',')
+              .map((word) => word.trim())
+              .map((word, idx) => (
+                <div
+                  key={idx}
+                  className="flex self-stretch justify-start text-black text-sm leading-relaxed"
+                >
+                  - {word}
+                </div>
+              ))
+          ) : (
+            <div className="flex self-stretch justify-start text-black text-sm leading-relaxed">
+              추천 항목 정보가 없습니다.
+            </div>
+          )}
         </div>
       </div>
-      <span className="flex justify-end text-black text-xs leading-relaxed cursor-pointer hover:underline">
+      <span
+        className="flex justify-end text-black text-xs leading-relaxed cursor-pointer hover:underline"
+        onClick={() => navigate(`/materials/${latestAnalysis.parentFolderId}`)}
+      >
         자세히 보러 가기 →
       </span>
     </div>
