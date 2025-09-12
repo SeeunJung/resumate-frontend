@@ -48,7 +48,10 @@ function RetrospectiveHeader({
             size={'md'}
             variant={'black'}
             className="whitespace-nowrap"
-            onClick={onAnalysisClick}
+            onClick={() => {
+              onAnalysisClick
+              navigate(`/materials/${folderId}`)
+            }}
           >
             자소서 소재 뽑기
           </Button>
