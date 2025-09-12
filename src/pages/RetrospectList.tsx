@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import RetrospectiveHeader from '../components/Retrospect/RetrospectHeader'
 import RetrospectiveWrapper from '../components/Retrospect/RetrospectList/RetrospectWrapper'
 import { useEffect, useMemo, useState } from 'react'
@@ -16,6 +16,7 @@ function RetrospectiveList() {
   const rootFolderId = Number(folderId)
   const assignColor = useFolderColorStore((state) => state.assignColor)
   const getColor = useFolderColorStore((state) => state.getColor)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchFolders = async () => {
@@ -68,8 +69,8 @@ function RetrospectiveList() {
   const handleAnalysisClick = async () => {
     if (selectedFolders.length === 0) return alert('폴더를 선택해주세요.')
     try {
-      const data = await requestAnalysis(selectedFolders)
-      console.log(data)
+      await requestAnalysis(selectedFolders)
+      navigate(`/materials/${folderId}`)
     } catch (error) {
       console.error('분석 요청 실패: ', error)
     }
