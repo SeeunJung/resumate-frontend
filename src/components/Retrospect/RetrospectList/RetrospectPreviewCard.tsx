@@ -10,9 +10,9 @@ interface RetrospectCardProps {
 function RetrospectivePreviewCard({ retrospect }: RetrospectCardProps) {
   const { folderId } = useParams<{ folderId: string }>()
   const navigate = useNavigate()
-  const { positives, improvements, learnings, aspirations } = retrospect
-  const available = positives || improvements || learnings || aspirations
-  const previewText = truncateText(available, 50)
+  const previewText = retrospect.description
+    ? truncateText(retrospect.description, 50)
+    : ''
 
   return (
     <div

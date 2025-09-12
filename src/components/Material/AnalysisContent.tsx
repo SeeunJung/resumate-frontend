@@ -37,17 +37,47 @@ function AnalysisContent({ analysis, folderId }: AnalysisContentProps) {
           <span className="flex text-black text-md font-bold leading-loose">
             강점 TOP 3
           </span>
-          <div className="flex self-stretch justify-start text-black text-sm leading-relaxed">
-            {analysis.keyword}
-          </div>
+          {analysis.keyword ? (
+            analysis.keyword
+              .replace(/^\[|\]$/g, '')
+              .split(',')
+              .map((word) => word.trim())
+              .map((word, idx) => (
+                <div
+                  key={idx}
+                  className="flex self-stretch justify-start text-black text-sm leading-relaxed"
+                >
+                  - {word}
+                </div>
+              ))
+          ) : (
+            <div className="flex self-stretch justify-start text-black text-sm leading-relaxed">
+              강점 정보가 없습니다.
+            </div>
+          )}
         </div>
         <div>
           <span className="flex text-black text-md font-bold leading-loose">
             추천 항목
           </span>
-          <div className="flex self-stretch justify-start text-black text-sm leading-relaxed">
-            {analysis.recKeyword}
-          </div>
+          {analysis.recKeyword ? (
+            analysis.recKeyword
+              .replace(/^\[|\]$/g, '')
+              .split(',')
+              .map((word) => word.trim())
+              .map((word, idx) => (
+                <div
+                  key={idx}
+                  className="flex self-stretch justify-start text-black text-sm leading-relaxed"
+                >
+                  - {word}
+                </div>
+              ))
+          ) : (
+            <div className="flex self-stretch justify-start text-black text-sm leading-relaxed">
+              추천 항목 정보가 없습니다.
+            </div>
+          )}
         </div>
       </section>
 
@@ -56,16 +86,16 @@ function AnalysisContent({ analysis, folderId }: AnalysisContentProps) {
           <span className="flex text-black text-md font-bold leading-loose">
             사용자의 경험에서 드러나는 강점과 역량
           </span>
-          <div className="flex self-stretch justify-start text-black text-sm leading-relaxed">
+          <div className="flex self-stretch justify-start text-black text-sm leading-relaxed whitespace-pre-line">
             {analysis.strength}
           </div>
         </section>
 
-        <section className={Card('p-6')}>
+        <section className={Card('p-6', 'min-w-[400px]')}>
           <span className="flex text-black text-md font-bold leading-loose">
             어떤 자소서 항목에 활용하면 좋은지 추천
           </span>
-          <div className="flex self-stretch justify-start text-black text-sm leading-relaxed">
+          <div className="flex self-stretch justify-start text-black text-sm leading-relaxed whitespace-pre-line">
             {analysis.suggestion}
           </div>
         </section>
